@@ -248,31 +248,33 @@
                 </div>
                 <div class="row">
                 <div>
-                    <div class="right-content-area">
-                        <div class="testimonial-carousel" id="testimonial-carousel">
-                            @foreach($testimonial as $data)
-                            <div class="single-testimonial-carousel"><!-- single testimonial carousel -->
-                                <div class="author-details">
-                                    <div class="pro-immage">
-                                        <img src="{{asset('assets/images/testimonial/'.$data->image)}}" alt="testimonial image">
-                                    </div>
-                                    <div class="content">
-                                        <h4 class="title">{{$data->name}}</h4>
-                                        <span class="post">{{$data->designation}}</span>
-                                    </div>
-                                </div>
-
-                                <div class="description">
-                                    <p>{!! $data->details !!}</p>
-                                </div>
-                            </div>
-                            <hr>
-                                @endforeach
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+        <div class="container">
+
+      <div class="row">
+          @foreach($testimonial as $data)
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="{{asset('assets/images/testimonial/'.$data->image)}}" alt="testimonial image" class="bd-placeholder-img card-img-top" width="100%" height="225">
+            <div class="card-body">
+              <div class="content">
+                  <h4 class="title">{{$data->name}}</h4>
+                  <span class="post">{{$data->designation}}</span>
+              </div>
+              <p class="card-text">{!! $data->details !!}</p>
+              <div class="d-flex justify-content-between align-items-center">
+              </div>
+            </div>
+          </div>
+        </div>
+@endforeach
+
+
+
+      </div>
+    </div>
     </section>
     <!-- testimonial area end -->
   <hr>

@@ -3,7 +3,7 @@
 <section class="footer-area blue-bg" style="margin:10px;">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 offset-lg-1">
+            <div class="col-lg-5 offset-lg-1">
                 <div class="footer-widget about"><!-- footer widget -->
                     <div class="widget-body">
                         <a href="{{url('/')}}" class="footer-logo">
