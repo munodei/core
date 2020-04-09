@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use File;
+use Image;
 use App\Admin;
 use App\SupportMessage;
 use App\SupportTicket;
 use App\User;
-use Illuminate\Http\Request;
-use Auth;
 use App\GeneralSettings;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
-use File;
-use Image;
+
 
 class AdminController extends Controller
 {
-
-
 	public function __construct(){
+
 		$Gset = GeneralSettings::first();
 		$this->sitename = $Gset->sitename;
 
 		$this->middleware('auth:admin');
+
 	}
 
 	public function dashboard()
@@ -31,11 +32,6 @@ class AdminController extends Controller
 
         return view('admin.dashboard', $data);
     }
-
-
-
-
-
 
     public function changePassword()
     {
@@ -102,9 +98,6 @@ class AdminController extends Controller
         return back()->with($notification);
     }
 
-
-
-
     public function supportTicket()
     {
         $page_title = 'Support Tickets';
@@ -118,7 +111,6 @@ class AdminController extends Controller
         $items = SupportTicket::whereIN('status', [0, 2])->orderBy('id', 'DESC')->paginate(15);
         return view('admin.support.pendingTickets', compact('items','page_title'));
     }
-
 
     public function ticketReply($id)
     {
@@ -152,11 +144,6 @@ class AdminController extends Controller
         }
         return back();
     }
-
-
-
-
-
 
     public function logout()    {
 		Auth::guard('admin')->logout();

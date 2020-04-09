@@ -1,27 +1,29 @@
-@extends('custom.admin')
+@extends('merchant-1')
 
 @section('import-css')
     <link href="{{ asset('assets/admin/css/bootstrap-fileinput.css') }}" rel="stylesheet">
 @stop
 @section('body')
-    <div class="app-title">
-        <div>
-            <h1><i class="fa fa-plus"></i> {{$page_title}}</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item"><a href="{{url()->current()}}">{{$page_title}}</a></li>
-        </ul>
+<div class="page-header">
+  <div class="row align-items-center">
+    <div class="col">
+      <h3 class="page-title">{{$page_title}}</h3>
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('contacts.index') }}">Contacts</a></li>
+      </ul>
     </div>
+    <div class="col-auto float-right ml-auto">
+      <a href="{{ route('contacts.create') }}" class="btn add-btn"><i class="fa fa-plus"></i> Add Contact</a>
+      <div class="view-icons">
+      </div>
+    </div>
+  </div>
+</div>
 
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-                <h3 class="tile-title ">{{$page_title}}
-                    <a href="{{route('contacts.index')}}" class="btn btn-primary btn-md pull-right ">
-                        <i class="fa fa-eye"></i> All contacts
-                    </a>
-                </h3>
                 <div class="tile-body">
                     <form role="form" method="POST" action="{{route('contacts.store')}}" name="editForm" enctype="multipart/form-data">
                         @csrf
@@ -33,9 +35,6 @@
                                 <h5> First Name</h5>
                                 <div class="input-group">
                                     <input type="text" name="firstname" value="{{old('firstname')}}" class="form-control form-control-lg" placeholder="First Name" >
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-font"></i></span>
-                                    </div>
                                 </div>
                                 @if ($errors->has('firstname'))
                                     <div class="error">{{ $errors->first('firstname') }}</div>
@@ -46,9 +45,6 @@
                                 <h5> Last Name</h5>
                                 <div class="input-group">
                                     <input type="text" value="{{old('lastname')}}" class="form-control form-control-lg" placeholder="Last Name" name="lastname">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-font"></i></span>
-                                    </div>
                                 </div>
                                 @if ($errors->has('lastname'))
                                     <div class="error">{{ $errors->first('lastname') }}</div>
@@ -61,9 +57,6 @@
                                 <h5>Mobile Phone </h5>
                                 <div class="input-group">
                                     <input type="text" name="mobilephone" value="{{old('mobilephone')}}" class="form-control form-control-lg" placeholder=" Mobile workphone" >
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-workphone"></i></span>
-                                    </div>
                                 </div>
                                 @if ($errors->has('mobilephone'))
                                     <div class="error">{{ $errors->first('mobilephone') }}</div>
@@ -74,9 +67,6 @@
                                 <h5> Email </h5>
                                 <div class="input-group">
                                     <input type="email" name="email" value="{{old('email')}}" class="form-control form-control-lg" placeholder=" Email Address" >
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
-                                    </div>
                                 </div>
                                 @if ($errors->has('email'))
                                     <div class="error">{{ $errors->first('email') }}</div>
@@ -87,46 +77,43 @@
 
 
                         <div class="row">
-                            <div class="form-group col-md-6">
 
-                                <div class="row">
-                                    <div class="form-group col-md-12">
+
+
+                                    <div class="form-group col-md-6">
                                         <h5> Work phone </h5>
                                         <div class="input-group">
                                             <input type="text" name="workphone" value="{{old('workphone')}}" class="form-control form-control-lg" placeholder="Work Phone Number">
-                                            <div class="input-group-append"><span class="input-group-text"><i class="fa fa-workphone"></i></span></div>
+
                                         </div>
                                         @if ($errors->has('workphone'))
                                             <div class="error">{{ $errors->first('workphone') }}</div>
                                         @endif
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         <h5> City </h5>
                                         <div class="input-group">
                                             <input type="text" name="city" value="{{old('city')}}" class="form-control form-control-lg" placeholder=" City" >
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fa fa-location-arrow"></i></span>
-                                            </div>
                                         </div>
                                         @if ($errors->has('city'))
                                             <div class="error">{{ $errors->first('city') }}</div>
                                         @endif
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         <h5> Zip Code </h5>
                                         <div class="input-group">
                                             <input type="text" name="zip_code" value="{{old('zip_code')}}" class="form-control form-control-lg" placeholder="Zip Code">
-                                            <div class="input-group-append"><span class="input-group-text">Zip Code</span></div>
+
                                         </div>
                                         @if ($errors->has('zip_code'))
                                             <div class="error">{{ $errors->first('zip_code') }}</div>
                                         @endif
                                     </div>
-                                </div>
 
-                            </div>
+
+
 
                             <div class="form-group col-md-6">
                                 <h4>Address</h4>
@@ -136,8 +123,8 @@
 
                         </div>
 
-                        <div class="row">                    
-                            <div class="form-group col-md-12 ">
+                        <div class="row">
+                            <div class="form-group col-md-6 ">
                                     <label><strong>Country</strong></label>
 
                                     <select name="country_id" class="form-control form-control-lg" >

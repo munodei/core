@@ -7,10 +7,10 @@
                     <div class="subscribe-form-wapper">
                         <form action="{{route('subscribe')}}" method="post" class="subscribe-form">
                             @csrf
-                            <div class="form-element">
-                                <input type="email" name="email"  class="input-field" placeholder="Enter your email...">
+                            <div class="form-group">
+                                <input type="email" name="email"  class="form-control" placeholder="Enter your email...">
                             </div>
-                            <input type="submit" class="submit-btn" value="Subscribe now">
+                            <input type="submit" class="btn btn-primary" value="Subscribe now">
                         </form>
                     </div>
                 </div>
@@ -18,4 +18,3 @@
         </div>
     </div>
 </section>
-

@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('content')
 
     <div class="app-title">
@@ -14,8 +14,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-                <h3 class="tile-title">Open support ticket</h3>
-                
+              
+
                 <div class="tile-body all-settings">
                     <form method="post" action="{{ route('user.ticket.store') }}">
                         @csrf

@@ -1,10 +1,10 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/front/css/calculation.css')}}">
     <link rel="stylesheet" href="{{asset('assets/front')}}/flags/flags.css">
     <link rel="stylesheet" href="{{asset('assets/front')}}/flags/dd.css">
-@endsection
+@stop
 @section('content')
     <!-- header area start -->
     <div class="header-area header-bg">
@@ -15,10 +15,13 @@
                         <h1 class="title">{{$basic->section1_heading}}</h1>
                         <p class="wow fadeInDown">{{$basic->section1_para}}</p>
                         <div class="btn-wrapper">
-                            <a href="{{route('contact-us')}}" class="boxed-btn btn-rounded">Talk to us</a>
+                            <a href="{{route('contact-us')}}" class="boxed-btn btn-rounded btn add-btn"  style="margin-bottom:10px;">Talk to us</a>
                         </div>
                     </div><!-- //. header inner -->
                 </div>
+
+
+
                 <div class="col-lg-5">
                     @include('errors.alert')
                     @include('errors.error')
@@ -33,7 +36,7 @@
                                         <div class="tgc-calculator-select">
                                             <div class="calculator-country-select-wrapper">
                                                 <select name="countries" id="fromCountries"
-                                                        class="calculator-select-country q-from-country">
+                                                        class="calculator-select-country col-md-12 q-from-country">
                                                     @foreach($country as $data)
                                                         <option value="{{$data->id}}" data-code="{{$data->code}}"
                                                                 data-rate="{{$data->rate}}"
@@ -47,7 +50,7 @@
 
                                             </div>
                                             <input type="tel"
-                                                   class="tgc-calculator-select-amount from-amount-enter q-calculator-from-amount-select"
+                                                   class="tgc-calculator-select-amount col-md-12 from-amount-enter q-calculator-from-amount-select"
                                                    autocomplete="off" placeholder="0.00"
                                                    onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')">
                                             <span class="calculator-select-currency q-from-currency-selector"></span>
@@ -59,7 +62,7 @@
                                         <div class="tgc-calculator-select">
                                             <div class="calculator-country-select-wrapper">
                                                 <select name="countriesaa" id="toCountries"
-                                                        class="calculator-select-country q-to-country">
+                                                        class="calculator-select-country col-md-12  q-to-country">
                                                     @foreach($countryLatest as $data)
                                                         <option value="{{$data->id}}" data-code="{{$data->code}}"
                                                                 data-rate="{{$data->rate}}"
@@ -72,7 +75,7 @@
 
                                             </div>
                                             <input type="tel"
-                                                   class="tgc-calculator-select-amount to-amount-enter  q-calculator-to-amount-select"
+                                                   class="tgc-calculator-select-amount to-amount-enter col-md-12   q-calculator-to-amount-select"
                                                    value=""
                                                    placeholder="0.00"
                                                    onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')"
@@ -147,14 +150,14 @@
 
 
     <!-- faq area start -->
-    <section class="faq-area2">
+    <section class="faq-area2"  style="margin:10px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-title extra">
-                        <h2 class="title">The best way to send money online</h2>
-                        <p>We are a full service Digital Marketing Agency all the foundational tools you need for
-                            inbound success. With this module theres no need to go another day.</p>
+                        <h2 class="title">The best way to send money and purchase online</h2>
+                        <p>We are a remittance agent all the foundational tools you need for
+                            day to day remittance. With this module theres no need to go another day.</p>
                     </div>
                 </div>
             </div>
@@ -174,15 +177,16 @@
                                         @foreach($area->countries->where('status',1) as $data)
                                             <div class="col-lg-6">
                                                 <div class="card">
+                                                  <a class="collapsed" data-toggle="collapse"  data-target="#collapse{{$data->id}}"
+                                                     >
                                                     <div class="card-header" id="heading{{$data->id}}">
-                                                        <a data-toggle="collapse" data-target="#collapse{{$data->id}}"
-                                                           aria-expanded="false" aria-controls="collapseOne">
+
                                                             <img src="{{asset('assets/images/country/'.$data->image)}}"
                                                                  alt="{{$data->name}}"> <span
                                                                 class="padding-left-10">{{$data->name}}</span>
-                                                        </a>
-                                                    </div>
 
+                                                    </div>
+                                                      </a>
                                                     <div id="collapse{{$data->id}}" class="collapse"
                                                          aria-labelledby="heading{{$data->id}}"
                                                          data-parent="#accordion">
@@ -211,45 +215,39 @@
     </section>
     <!-- faq area end -->
 
-
-
-
-
-
-
-
-
-
+  <hr>
     <!-- video area start -->
-    <section class="video-area video-area-bg grd-overlay">
+    <section class="video-area video-area-bg grd-overlay" style="margin:10px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="video-area-content">
-                        <div class="video-ply-wrapper">
-                            <a href="{{$basic->about_video}}" class="video-play-btn mfp-iframe"><i class="fas fa-play"></i></a>
-                        </div>
-                        <h2 class="title">{{$basic->about_title}}</h2>
-                        <p>{!! $basic->about !!}</p>
-
+                        <center><h2 class="title">{{$basic->about_title}}</h2>
+                          <br>
+                        {!! $basic->about !!}</center>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- video area end -->
-
+  <hr>
     <!-- testimonial area start -->
-    <section class="testimonial-area " id="testimonial_carousel">
+    <section class="testimonial-area " id="testimonial_carousel" style="margin:10px;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
+
                     <div class="left-content-area"><!-- left content area -->
-                        <h3 class="title">{{$basic->testimonial_h}}</h3>
-                        <p>{{$basic->testimonial_p}}</p>
+                          <center>  <h3 class="title">{{$basic->testimonial_h}}</h3>
+                        <p>{{$basic->testimonial_p}}</p></center>
                     </div>
+
                 </div>
-                <div class="col-lg-6">
+                <hr>
+                </div>
+                <div class="row">
+                <div>
                     <div class="right-content-area">
                         <div class="testimonial-carousel" id="testimonial-carousel">
                             @foreach($testimonial as $data)
@@ -268,6 +266,7 @@
                                     <p>{!! $data->details !!}</p>
                                 </div>
                             </div>
+                            <hr>
                                 @endforeach
                         </div>
                     </div>
@@ -276,18 +275,18 @@
         </div>
     </section>
     <!-- testimonial area end -->
-
-  @include('partials.achievement')
+  <hr>
 
  @include('partials.subscribe')
-
+  <hr>
 
 
 
 
 
 @endsection
-@section('js')
+
+@section('script')
     <script src="{{asset('assets/front')}}/flags/jquery.dd.min.js"></script>
     <script>
         $(document).ready(function () {

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Deposit;
+use Auth;
+use Session;
 
 use App\Trx;
+use App\User;
+use App\Gateway;
+use App\Deposit;
+use App\GeneralSettings;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-use Auth;
-use App\User;
-use App\Gateway;
-use App\GeneralSettings;
-
-use Session;
 use Stripe\Stripe;
 use Stripe\Token;
 use Stripe\Charge;

@@ -7,8 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class WithdrawMethod extends Model
 {
     protected $table = 'withdraw_methods';
-
-    protected $fillable = ['name','image','fix','percent','duration','status','withdraw_min','withdraw_max'];
-
-
+    protected $fillable = ['id', 'name', 'image', 'percent', 'charge','duration', 'status', 'withdraw_min', 'withdraw_max', 'created_at', 'updated_at'];
 }

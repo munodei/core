@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('css')
 @endsection
@@ -35,18 +35,18 @@
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="form-element margin-bottom-30">
+                                    <div class="form-element form-group margin-bottom-30">
                                         <label for="name" class="label">Name *</label>
-                                        <input type="text" name="name" id="name" class="input-field"
+                                        <input type="text" name="name" id="name" class="form-control"
                                                placeholder="Enter your name">
 
                                         @if ($errors->has('name'))
                                             <span class="error">{{ $errors->first('name') }}</span>
                                         @endif
                                     </div>
-                                    <div class="form-element margin-bottom-30">
+                                    <div class="form-element form-group margin-bottom-30">
                                         <label for="phone" class="label">Phone *</label>
-                                        <input type="text" name="phone" id="phone" class="input-field"
+                                        <input type="text" name="phone" id="phone" class="form-control"
                                                placeholder="Enter phone number">
                                         @if ($errors->has('phone'))
                                             <span class="error">{{ $errors->first('phone') }}</span>
@@ -54,17 +54,17 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-element margin-bottom-30">
+                                    <div class="form-element form-group margin-bottom-30">
                                         <label for="email" class="label">Email *</label>
-                                        <input type="email" name="email" id="email" class="input-field"
+                                        <input type="email" name="email" id="email" class="form-control"
                                                placeholder="Enter your email">
                                         @if ($errors->has('email'))
                                             <span class="error">{{ $errors->first('email') }}</span>
                                         @endif
                                     </div>
-                                    <div class="form-element margin-bottom-30">
+                                    <div class="form-element form-group margin-bottom-30">
                                         <label for="subject" class="label">Subject *</label>
-                                        <input type="text" name="subject" id="subject" class="input-field"
+                                        <input type="text" name="subject" id="subject" class="form-control"
                                                placeholder="Enter your subject">
                                         @if ($errors->has('subject'))
                                             <span class="error">{{ $errors->first('subject') }}</span>
@@ -72,10 +72,10 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-element textarea margin-bottom-30">
+                                    <div class="form-element form-group textarea margin-bottom-30">
                                         <label for="message" class="label">Message *</label>
                                         <textarea name="message" id="message" placeholder="Enter message"
-                                                  class="input-field textarea" cols="30" rows="10"></textarea>
+                                                  class="form-control textarea" cols="30" rows="10"></textarea>
 
                                         @if ($errors->has('message'))
                                             <span class="error">{{ $errors->first('message') }}</span>

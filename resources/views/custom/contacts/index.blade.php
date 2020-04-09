@@ -1,82 +1,78 @@
-@extends('custom.admin')
+@extends('merchant-1')
 
 @section('body')
-    <div class="app-title">
-        <div>
-            <h1><i class="fa fa-users"></i> {{$page_title}}</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item"><a href="{{url()->current()}}">Manage contacts</a></li>
-        </ul>
+
+    <!-- Page Header -->
+<div class="page-header">
+  <div class="row align-items-center">
+    <div class="col">
+      <h3 class="page-title">{{$page_title}}</h3>
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+        <li class="breadcrumb-item active">Contacts</li>
+      </ul>
     </div>
+    <div class="col-auto float-right ml-auto">
+      <a href="{{ route('contacts.create') }}" class="btn add-btn"><i class="fa fa-plus"></i> Add Contact</a>
+      <div class="view-icons">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Header -->
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
-                <div class="tile-title-w-btn">
-                    <h3 class="title">{{$page_title}}</h3>
-                    <a class="btn btn-primary icon-btn" href="{{route('contacts.create')}}"><i class="fa fa-plus"></i>Add contacts  </a>
+<!-- Search Filter -->
+<div class="row filter-row">
+
+  <div class="col-sm-6 col-md-3">
+    <div class="form-group form-focus">
+      <form  method="post" action = "{{ route('search-contacts') }}" id="searchform"  value="{{ request('search')  }}"  autocomplete="off">
+                              @csrf
+      <input type="text" class="form-control floating" name="search" value="{{ request('search')  }}"  autocomplete="off">
+      </form>
+      <label class="focus-label">Contact Name</label>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <button class="btn btn-success btn-block" onclick="event.preventDefault();document.getElementById('searchform').submit();"> Search </button>
+  </div>
+
+          </div>
+<!-- Search Filter -->
+
+<div class="row staff-grid-row">
+
+  @if(count($contacts) >0)
+      @foreach($contacts as $k=>$data)
+          <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+            <div class="profile-widget">
+              <div class="profile-img">
+                <a href="{{ route('contact',[$data->contactID]) }}" class="avatar"><img src="{{ url('/') }}/{{ $data->photo }}" alt="{{$data->firstname}} {{$data->lastname}}"></a>
+              </div>
+              <div class="dropdown profile-action">
+                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="{{ route('contact', [$data->contactID]) }}"><i class="fa fa-eye m-r-5"></i> View</a>
+                  <a class="dropdown-item" href="{{ route('contacts.edit', $data->contactID) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                  <a class="dropdown-item" href="{{ route('contacts.destroy', $data->contactID) }}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                 </div>
-
-                <div class="tile-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover order-column" id="">
-                            <thead>
-                            <tr>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col"> Email</th>
-                                <th scope="col">Crreated</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if(count($contacts) >0)
-                                @foreach($contacts as $k=>$data)
-                                    <tr>
-                                        <td data-label="Username">
-                                            <a href="{{route('user.single', $data->id)}}">
-                                                {{$data->firstname}}
-                                            </a>
-                                        </td>
-                                        <td data-label="Email">{{$data->lastname}}</td>
-                                        <td data-label="Phone">{{$data->mobilephone}}</td>
-                                        <td data-label="Amount"><strong>{{$data->email}}</strong></td>
-
-                                        <td data-label="Time">
-                                            {!! date(' d M, Y h:i A', strtotime($data->created_at)) !!} </td>
-                                        <td data-label="Action">
-                                            <a href="{{ route('contact', [$data]) }}" class="btn btn-outline-primary btn-sm ">
-                                                <i class="fa fa-eye"></i> Info
-                                            </a>
-                                            <a href="{{ route('contacts.edit', $data->id) }}" class="btn btn-outline-success btn-sm ">
-                                                <i class="fa fa-edit"></i> Edit
-                                            </a>
-                                            <a href="{{ route('contacts.destroy', $data->id) }}" class="btn btn-outline-danger btn-sm ">
-                                                <i class="fa fa-edit"></i> Delete
-                                            </a>
-
-                                        </td>
-                                    </tr>
-
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="6"> You don't have any Contacts!!</td>
-                                </tr>
-
-                            @endif
-                            <tbody>
-                        </table>
-
-                        {{$contacts->links()}}
-                    </div>
-                </div>
+              </div>
+              <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="#">{{$data->firstname}} {{$data->lastname}}</a></h4>
+              <div class="small text-muted">{{$data->email}} {{$data->mobilephone}}</div>
             </div>
-        </div>
-    </div>
+          </div>
+      @endforeach
+      @else
+      <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+          <center> You don't have any Contacts!!</center>
+      </div>
+
+      @endif
+
+{{$contacts->links()}}
+
+</div>
 
 
 

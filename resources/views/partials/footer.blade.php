@@ -1,24 +1,19 @@
 
 <!-- footer area start -->
-<section class="footer-area blue-bg">
+<section class="footer-area blue-bg" style="margin:10px;">
     <div class="container">
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-4 offset-lg-1">
                 <div class="footer-widget about"><!-- footer widget -->
                     <div class="widget-body">
                         <a href="{{url('/')}}" class="footer-logo">
-                            <img src="{{asset('assets/images/logo/logo.png')}}" alt="footer logo" class="max-logo-height">
+                            <img src="{{asset('assets/images/logo/logo.png')}}" width="60" width="60" alt="footer logo" class="max-logo-height">
                         </a>
                         <p>{{$basic->copyright}}</p>
-                        <ul class="social-icons">
-                            @foreach($social as $data)
-                            <li class="ico"><a href="{{$data->link}}" title="{{$data->name}}">{!! $data->code !!}</a></li>
-                                @endforeach
-                        </ul>
                     </div>
                 </div><!-- //.footer widget -->
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="footer-widget"><!-- footer widget -->
                     <div class="widget-title">
                         <h4 class="title">Links</h4>
@@ -46,10 +41,15 @@
                     </div>
                     <div class="widget-body">
                         <ul>
-                            <li><a href="{{route('about')}}">About Us</a></li>
+                            <li><a href="{{route('about')}}" style="color:#bbc4cc;">About Us</a></li>
                             <li><a href="{{route('faqs')}}">Faqs</a></li>
                             <li><a href="{{route('contact-us')}}">Contact Us</a></li>
+                            @guest
                             <li><a href="{{route('login')}}">Sign In</a></li>
+                            <li><a href="{{route('register')}}">Sign Up</a></li>
+                            @else
+
+                            @endguest
                         </ul>
                     </div>
                 </div><!-- //.footer widget -->
@@ -69,6 +69,7 @@
         </div>
     </div>
 </section>
+  <hr>
 <div class="copyright-area dark-blug-lg">
     <div class="container">
         <div class="row">

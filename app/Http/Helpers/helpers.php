@@ -3,7 +3,8 @@
 use App\Etemplate;
 use App\GeneralSettings;
 use App\Advertisment;
-
+use Illuminate\Support\Facades\Auth;
+  //$notifications = \App\Notification::where([['is_read',0],['user_id',auth()->user()->id]])->get();
 if (!function_exists('send_email')) {
 
     function send_email($to, $name, $subject, $message)
@@ -22,9 +23,9 @@ if (!function_exists('send_email')) {
             $message = str_replace("{{message}}", $message, $mm);
 
             if (@mail($to, $subject, $message, $headers)) {
-                // echo 'Your message has been sent.';
+                 echo 'Your message has been sent.';
             } else {
-                //echo 'There was a problem sending the email.';
+                echo 'There was a problem sending the email.';
             }
         }
     }
@@ -45,6 +46,30 @@ if (!function_exists('send_sms')) {
             $result = file_get_contents($appi);
         }
     }
+}
+
+if(! function_exists('add_notification')){
+
+  function add_notification($user_id=0, $icon='<span class="task-action-btn task-check">
+  															<span class="action-circle large complete-btn">
+  																<i class="material-icons">check</i>
+  															</span>
+  													</span>', $message='', $link='#', $is_read=0){
+
+   \App\Notification::create([
+                                                    'user_id' => $user_id,
+                                                    'icon'    => $icon,
+                                                    'message' => $message,
+                                                    'link'    => $link,
+                                                    'is_read' => $is_read,
+
+                                                  ]);
+
+
+
+
+  }
+
 }
 
 if(!function_exists('unique_slug')){

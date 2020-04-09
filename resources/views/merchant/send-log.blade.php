@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('content')
 
     <div class="app-title">
@@ -11,67 +11,49 @@
         </ul>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
-                <h3 class="tile-title ">{{$page_title}}</h3>
-                <div class="tile-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover order-column" id="">
-                            <thead>
-                            <tr>
-                                <th scope="col">Transaction Number</th>
-                                <th scope="col">Send Amount</th>
-                                <th scope="col">Recipient</th>
-                                <th scope="col">Receive Amount</th>
-                                <th scope="col"> Send Date</th>
-                                <th scope="col"> Received Date</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Invoice</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($sendMoney as $k=>$data)
-                                <tr>
-                                    <td data-label="Transaction Number">{{isset($data->trx ) ? $data->trx  : '-'}}</td>
 
-                                    <td data-label="Send Amount"><strong>{!! isset($data->from_currency_amo) ? $data->from_currency_amo : '-' !!} {!! $data->fromCurrency->code !!}</strong></td>
-                                    <td data-label="Recipient">{{isset($data->name) ? $data->name : '-'}} </td>
-                                    <td data-label="Receive Amount"><strong>{!! isset($data->to_currency_amo) ? $data->to_currency_amo : '-' !!} {!! $data->toCurrency->code !!}</strong></td>
-                                    <td data-label="Date Send">
-                                        {!! date('d  M, Y  h:i A', strtotime($data->created_at)) !!}
-                                    </td>
-                                    <td data-label="Date Received">
-                                        @if($data->received_at != null)
-                                        {!!  date('d  M, Y  h:i A', strtotime($data->received_at)) !!}
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td data-label="Status">
-                                        @if($data->status == 2)
-                                            <span  class="badge  badge-pill  badge-success "> completed </span>
-                                        @elseif($data->status == 1)
-                                            <span class="badge  badge-pill  badge-danger ">Pending </span>
-                                        @endif
-                                    </td>
-                                    <td data-label="Status">
-                                        <a href="{{route('send.invoice',$data->trx)}}" class="btn btn-info btn-sm"><i class="fa fa-file-text" aria-hidden="true"></i>
-                                         </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            <tbody>
-                        </table>
+    <div class="row staff-grid-row">
 
-                        {{$sendMoney->links()}}
-                    </div>
+    @if(count($sendMoney) >0)
+        @foreach($sendMoney as $k=>$data)
+            <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+              <div class="profile-widget">
+
+                <div class="dropdown profile-action">
+                  <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                  </div>
                 </div>
+                <h4 class="user-name m-t-10 mb-0 text-ellipsis"><strong>Transaction Number</strong> : {{isset($data->trx ) ? $data->trx  : '-'}}</h4>
+                <div class="small text-muted"><strong>Recipient</strong> : {{isset($data->name) ? $data->name : '-'}}</div>
+                <div class="small text-muted"><strong>Receive Amount</strong> : {!! isset($data->to_currency_amo) ? $data->to_currency_amo : '-' !!} {!! $data->toCurrency->code !!}</div>
+                <div class="small text-muted"><strong>Send Date</strong> :   {!! date('d  M, Y  h:i A', strtotime($data->created_at)) !!}</div>
+                <div class="small text-muted"><strong>Received Date</strong> :   @if($data->received_at != null)
+                  {!!  date('d  M, Y  h:i A', strtotime($data->received_at)) !!}
+                  @else
+                      -
+                  @endif</div>
+                <div class="small text-muted"><strong>Status</strong> :   @if($data->status == 2)
+                      <span  class="badge  badge-pill  badge-success "> completed </span>
+                  @elseif($data->status == 1)
+                      <span class="badge  badge-pill  badge-danger ">Pending </span>
+                  @endif</div>
+                <div class="small text-muted"><strong>Invoice</strong> : <a href="{{route('send.invoice',$data->trx)}}" class="btn btn-info btn-sm"><i class="fa fa-file-text" aria-hidden="true"></i>
+                 </a></div>
+              </div>
             </div>
+        @endforeach
+        @else
+        <div class="col-md-12 col-sm-12 col-12">
+            <center> You haven't send any Money as of yet!!</center>
         </div>
+
+        @endif
+
+    {{$sendMoney->links()}}
+
     </div>
-
-
 
 
 

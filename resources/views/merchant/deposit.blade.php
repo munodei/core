@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('content')
     <div class="app-title">
         <div>
@@ -21,7 +21,7 @@
                     <div class="tile-body">
                         <img class="card-img-top"
                              src="{{asset('assets/images/gateway')}}/{{$gate->id.'.jpg'}}"
-                             alt="image">
+                             alt="{{ $gate->name }}" width="400px" height="400px">
                     </div>
                     <div class="tile-footer">
                         <button data-toggle="modal"

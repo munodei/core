@@ -1,6 +1,7 @@
-@extends('merchant')
+@extends('merchant-1')
 
 @section('body')
+
     <div class="app-title">
         <div>
             <h1><i class="fa fa-home"></i> {{isset($page_title)? $page_title : ''}}</h1>

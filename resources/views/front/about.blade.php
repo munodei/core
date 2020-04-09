@@ -1,11 +1,11 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('css')
 @endsection
 @section('content')
 
 
-
+<center>
     <!-- breadcrumb area start -->
     <section class="breadcrumb-area breadcrumb-bg">
         <div class="container">
@@ -44,8 +44,8 @@
         </div>
     </section>
     <!-- about page content area end -->
+</center>
 
-  @include('partials.achievement')
 
 
 @include('partials.subscribe')

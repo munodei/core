@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('css')
 @endsection
@@ -18,15 +18,15 @@
     <!-- breadcrumb area end -->
 
     <!-- blog page content area start-->
-    <div class="blog-page-conent">
+    <div class="blog-page-conent" style="margin:10px;">
         <div class="container">
             <div class="row">
 
                 @foreach($blogs as $data)
                     <div class="col-lg-4 col-md-6">
                         <div class="single-blog-post"><!-- single blog page -->
-                            <div class="thumb">
-                                <img src="{{asset('assets/images/post/'.$data->image)}}" alt="blog images">
+                            <div class="thumb ">
+                                <img src="{{asset('assets/images/post/'.$data->image)}}" alt="blog images" width="300px" height="300px">
                             </div>
                             <div class="content">
                                 <a href="{{route('blog.details',[$data->id,str_slug($data->title)])}}"><h4 class="title">{{$data->title}}</h4></a>

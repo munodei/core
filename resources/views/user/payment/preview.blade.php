@@ -1,4 +1,4 @@
-@extends('user')
+@extends('merchant-1')
 @section('content')
     <!-- breadcrumb area start -->
     <section class="breadcrumb-area breadcrumb-bg white-bg extra">
@@ -46,10 +46,11 @@
                                 <li class="list-group-item "> Payable :
                                     <strong>{{$data->charge + $data->amount}} </strong>{{ $basic->currency }}</li>
 
-
+                                @if($data->gateway_id !=515 || $data->gateway_id !=514)
                                 <li class="list-group-item"> In USD :
                                     <strong>${{$data->usd}}</strong>
                                 </li>
+                                @endif
 
                                 <li class="list-group-item">
                                     <div class="btn-wrapper">

@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('content')
 
     <div class="app-title">
@@ -11,53 +11,39 @@
         </ul>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
-                <h3 class="tile-title ">{{$page_title}}</h3>
-                <div class="tile-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover order-column" id="">
-                            <thead>
-                            <tr>
-                                <th scope="col">SL</th>
-                                <th scope="col">Transaction ID</th>
-                                <th scope="col">Details</th>
-                                <th scope="col">Amount</th>
 
-                                <th scope="col">Remaining Balance</th>
-                                <th scope="col">Time</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if(count($invests) >0)
-                                @foreach($invests as $k=>$data)
-                                    <tr @if($data->type == '+') class="green"
-                                        @elseif($data->type == '-') class="red" @endif>
-                                        <td data-label="SL">{{++$k}}</td>
-                                        <td data-label="#TRX">{{isset($data->trx) ? $data->trx : 'N/A'}}</td>
-                                        <td data-label="Details">{{  isset($data->title) ? $data->title : 'N/A' }}</td>
-                                        <td data-label="Amount">{{isset($data->amount) ? $data->amount  : 'N/A'}}   {{ $basic->currency }}</td>
-                                        <td data-label="Remaining Balance">{{isset($data->main_amo) ? $data->main_amo : ''}}  {{$basic->currency}}</td>
-                                        <td data-label="Time">
-                                            {!! date(' d M, Y h:i A', strtotime($data->created_at)) !!} </td>
-                                    </tr>
+    <div class="row staff-grid-row">
 
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="6"> You don't have any transaction history !!</td>
-                                </tr>
+    @if(count($invests) >0)
+        @foreach($invests as $k=>$data)
+            <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+              <div class="profile-widget">
 
-                            @endif
-                            <tbody>
-                        </table>
-
-                        {{$invests->links()}}
-                    </div>
+                <div class="dropdown profile-action">
+                  <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                  </div>
                 </div>
+                <h4 class="user-name m-t-10 mb-0 text-ellipsis"><strong>Transaction ID</strong> : {{ isset($data->trx) ? $data->trx : 'N/A' }}</h4>
+                <div class="small text-muted"><strong>Type</strong> : @if($data->type == '+') Deposit @elseif($data->type == '-') Withdrawal @endif</div>
+                <div class="small text-muted"><strong>SL</strong> : {{++$k}}</div>
+                <div class="small text-muted"><strong>Transaction ID</strong> : {{ isset($data->trx) ? $data->trx : 'N/A' }}</div>
+                <div class="small text-muted"><strong>Details</strong> : {{  isset($data->title) ? $data->title : 'N/A' }}</div>
+                <div class="small text-muted"><strong>Amount</strong> : {{isset($data->amount) ? $data->amount  : 'N/A'}}   {{ $basic->currency }}</div>
+                <div class="small text-muted"><strong>Remaining Balance</strong> : {{isset($data->main_amo) ? $data->main_amo : ''}}  {{$basic->currency}}</div>
+                <div class="small text-muted"><strong>Time</strong> : {!! date(' d M, Y h:i A', strtotime($data->created_at)) !!}</div>
+              </div>
             </div>
-        </div>
-    </div>
+        @endforeach
+        @else
+          <div class="col-md-12 col-sm-12 col-12">
+            <center> You don't have any Transactions made  !!</center>
+          </div>
 
+        @endif
+
+    {{$invests->links()}}
+
+    </div>
 @stop

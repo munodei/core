@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('content')
 
@@ -51,8 +51,8 @@
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="form-element margin-bottom-20">
-                                        <input type="email" name="email" value="{{ old('email') }}" class="input-field" placeholder="Email Address">
+                                    <div class="form-element form-group margin-bottom-20">
+                                        <input type="email" name="email" value="{{ old('email') }}" class="input-field form-control" placeholder="Email Address">
                                         @if ($errors->has('email'))
                                             <span class="error ">
                                                 <strong>{{ $errors->first('email') }}</strong>
@@ -64,7 +64,7 @@
                                 <div class="col-lg-12">
 
                                     <div class="btn-wrapper">
-                                            <input type="submit" class="submit-btn btn-block" value="Send Reset Link">
+                                            <input type="submit" class="submit-btn btn-block btn-primary" value="Send Reset Link">
                                     </div>
                                 </div>
                             </div>
