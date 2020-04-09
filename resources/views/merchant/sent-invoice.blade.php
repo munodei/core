@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('css')
 @stop
 @section('content')

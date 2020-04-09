@@ -93,12 +93,123 @@ Route::group(['middleware' => ['auth','CheckStatus']], function() {
         Route::post('/payout-confirm', 'HomeController@withdrawConfirm')->name('withdrawConfirm');
         Route::post('/payout-confirm', 'HomeController@withdrawConfirm')->name('withdrawConfirm');
         Route::get('/payout-log', 'HomeController@withdrawLog')->name('withdrawLog');
+        //notifications
+        Route::resource('notifications', 'NotificationController');
+        Route::get('/read-notification/{id}','NotificationController@readNotification')->name('read-notification');
+
+        //delivery locations
+        Route::resource('delivery-locations', 'DeliveryLocationsController');
+        Route::any('get-delivery-option/{id}','DeliveryLocationsController@getDeliveryOption')->name('get-delivery-option');
+        Route::any('delete-delivery-option','DeliveryLocationsController@destroy')->name('delete-delivery-option');
+        Route::any('share-delivery-location','DeliveryLocationsController@shareDeliveryOption')->name('share-delivery-location');
+        Route::any('update-delivery-option','DeliveryLocationsController@update')->name('update-delivery-option');
+
+        //Sell Airtime
+        Route::resource('sell-airtime', 'SellAirTimeController');
+        Route::any('airtime-sells', 'SellAirTimeController@airTimeSells')->name('airtime-sells');
+        Route::any('sell-airtime-preview', 'SellAirTimeController@airTimepreview')->name('sell-airtime-preview');
+        Route::any('sell-airtime-confirm', 'SellAirTimeController@airTimeConfirm')->name('sell-airtime-confirm');
+
+        //Direct Withdrawal Requests
+        Route::resource('withdrawal-requests', 'WithdrawalRequests');
+        Route::post('delete-withdrawal-requests',  'WithdrawalRequests@destroy')->name('delete-withdrawal-requests');
+        Route::get('withdrawal-via-e-wallet',  'WithdrawalRequests@usingEwallet')->name('withdrawal-via-e-wallet');
+        Route::get('withdrawal-via-e-bank-transfer',  'WithdrawalRequests@usingBankTransfer')->name('withdrawal-via-e-bank-transfer');
+
+        //Buy Airtime
+        Route::resource('buy-airtime', 'BuyAirTimeController');
+
+        //shopping request
+        Route::resource('shopping-requests', 'ShoppingRequestController');
+        Route::any('pay-shopping-requests', 'ShoppingRequestController@pay')->name('pay-shopping-requests');
+        Route::any('cancel-shopping-requests', 'ShoppingRequestController@cancel')->name('cancel-shopping-requests');
+        Route::any('delete-shopping-requests', 'ShoppingRequestController@destroy')->name('delete-shopping-requests');
 
         //Contacts
         Route::resource('contacts', 'ContactController');
         Route::post('/update-contact/{contact}','ContactController@update')->name('update-contact');
         Route::get('/contact/{contact}','ContactController@singleUser')->name('contact');
         Route::get('/delete-contact/{contact}','ContactController@destroy')->name('delete-contact');
+        Route::get('/delete-all-contacts','ContactController@destroyAll')->name('delete-all-contacts');
+
+        Route::post('/search-contacts','ContactController@searchContacts')->name('search-contacts');
+        Route::any('/contacts-import','ContactController@contactsImport')->name('contacts-import');
+        Route::post('/contacts-import-save','ImportsController@importGoogleCSVContacts')->name('contacts-import-save');
+        Route::any('/contacts-export','ContactController@contactsExport')->name('contacts-export');
+        Route::any('/all-contacts-export','ContactController@allContactsExport')->name('all-contacts-export');
+        //Route::any('/contact/{slug}','ContactController@viewContact')->name('view-contact');
+        Route::any('/delete-contact-share/{user_id}/{id}','ContactController@deleteContactShare')->name('delete-contact-share');
+        Route::post('/contact-group-update','ContactController@assignGroupContact')->name('contact-group-update');
+        Route::any('/share-contact','ContactController@shareContact')->name('share-contact');
+
+        //Shopping items and Lists
+        Route::post('/share-shopping-item','Common\ShoppingItemController@shareShoppingItem')->name('share-shopping-item');
+        Route::post('/share-shopping-list','Common\ShoppingListController@shareShoppingList')->name('share-shopping-list');
+        Route::post('/add-product-to-shopping-items','Common\ShoppingItemController@addProductToShoppingItems')->name('add-product-to-shopping-items');
+        Route::post('/search-shopping-items','Common\ShoppingItemController@index')->name('search-shopping-items');
+        Route::get('/download-shopping-list/{groud_id}','Common\ShoppingListController@exportShoppingGroupItems')->name('download-shopping-list');
+        Route::post('/shopping-list-request','Common\ShoppingListController@shoppingListPurchaseRequest')->name('shopping-list-request');
+        Route::get('/all-shopping-items-export','Common\ShoppingItemController@exportAllShoppingItems')->name('all-shopping-items-export');
+        Route::get('/shopping-product-list/{slug}','Common\ShoppingItemController@showShoppingList')->name('shopping-product-list');
+        Route::post('/shopping-items-import-save','ImportsController@importShoppingItemsCSV')->name('shopping-items-import-save');
+        Route::get('/shopping-product/{slug}','Common\ShoppingItemController@showShoppingProduct')->name('shopping-product');
+        Route::any('/shopping-item/{id}','Common\ShoppingItemController@showShoppingItem')->name('shopping-item');
+        Route::any('/shopping-items','Common\ShoppingItemController@index')->name('shopping-items');
+        Route::get('/shopping-items-import','Common\ShoppingItemController@import')->name('shopping-items-import');
+        Route::get('/shopping-items-export','Common\ShoppingItemController@export')->name('shopping-items-export');
+        Route::post('/shopping-item-group-update','Common\ShoppingItemController@assignGroupItem')->name('shopping-item-group-update');
+        Route::any('/add-shopping-item','Common\ShoppingItemController@addShoppingItem')->name('add-shopping-item');
+        Route::any('/save-shopping-item','Common\ShoppingItemController@saveShoppingItem')->name('save-shopping-item');
+        Route::any('/edit-shopping-item/{id}','Common\ShoppingItemController@editShoppingItem')->name('edit-shopping-item');
+        Route::any('/update-shopping-item/{id}','Common\ShoppingItemController@updateShoppingItem')->name('update-shopping-item');
+        Route::any('/delete-shopping-item','Common\ShoppingItemController@deleteShoppingItem')->name('delete-shopping-item');
+        Route::any('/delete-from-group-shopping-item/{group_id}/{contact_id}','Common\ShoppingItemController@deleteFromGroupContact')->name('delete-from-group-shopping-item');
+
+
+        //Shopping List Controller
+        Route::get('/shopping-lists', 'Common\ShoppingListController@index')->name('shopping-list');
+        Route::any('/shopping-list-create', 'Common\ShoppingListController@create')->name('shopping-list-create');
+        Route::any('/shopping-list-save', 'Common\ShoppingListController@save')->name('shopping-list-save');
+        Route::any('/shopping-list-update', 'Common\ShoppingListController@update')->name('shopping-list-update');
+        Route::any('/shopping-list-destroy', 'Common\ShoppingListController@destroy')->name('shopping-list-destroy');
+
+        //Notes Controller
+        Route::get('/notes', 'Common\NoteController@index')->name('notes');
+        Route::post('/share-goup-notes', 'Common\NoteController@shareNoteGroup')->name('share-goup-notes');
+        Route::any('/note-create', 'Common\NoteController@create')->name('note-create');
+        Route::any('/note-update', 'Common\NoteController@update')->name('note-update');
+        Route::any('/note-destroy/{id}', 'Common\NoteController@destroy')->name('note-destroy');
+
+        //Links Controller
+        Route::get('/bookmark-links', 'Common\LinkController@index')->name('bookmark-links');
+        Route::post('/share-group-links', 'Common\LinkController@shareLinkGroup')->name('share-group-links');
+        Route::any('/link-create', 'Common\LinkController@create')->name('link-create');
+        Route::any('/link-save/{id}', 'Common\LinkController@save')->name('link-save');
+        Route::any('/link-edit/{id}', 'Common\LinkController@edit')->name('link-edit');
+        Route::any('/link-update', 'Common\LinkController@update')->name('link-update');
+        Route::any('/link-destroy', 'Common\LinkController@destroy')->name('link-destroy');
+
+        //Group Link Routes
+        Route::get('/all-group-links', 'Common\GroupLinkController@index')->name('all-group-links');
+        Route::any('/group-create', 'Common\GroupLinkController@create')->name('group-link-create');
+        Route::any('/group-edit/{id}', 'Common\GroupLinkController@edit')->name('group-link-edit');
+        Route::any('/group-update', 'Common\GroupLinkController@update')->name('group-link-update');
+        Route::any('/group-links/{id}','Common\GroupLinkController@groupUrls')->name('group-links');
+        Route::any('/group-destroy', 'Common\GroupLinkController@destroy')->name('group-link-destroy');
+
+        //Group Notes Routes
+        Route::get('/groups-note', 'Common\GroupNoteController@index')->name('groups-note');
+        Route::any('/group-note-create', 'Common\GroupNoteController@create')->name('group-note-create');
+        Route::any('/group-note-update', 'Common\GroupNoteController@update')->name('group-note-update');
+        Route::any('/group-note-destroy', 'Common\GroupNoteController@destroy')->name('group-note-destroy');
+
+
+        //Polls
+        Route::resource('polls', 'PollController');
+        Route::get('created-poll/{poll}', 'PollController@createdPoll')->name('created-poll');
+        Route::post('/update-poll/{poll}','PollController@update')->name('update-poll');
+        Route::get('/poll/{poll}','PollController@singleUser')->name('poll');
+        Route::get('/delete-poll/{poll}','PollController@destroy')->name('delete-poll');
 
         //Group Contacts
         Route::resource('contacts-groups', 'ContactGroupController');
@@ -266,4 +377,3 @@ Route::get('user-password/reset', 'User\ForgotPasswordController@showLinkRequest
 Route::post('user-password/email', 'User\ForgotPasswordController@sendResetLinkEmail')->name('user.password.email');
 Route::get('user-password/reset/{token}', 'User\ResetPasswordController@showResetForm')->name('user.password.reset');
 Route::post('user-password/reset', 'User\ResetPasswordController@reset');
-

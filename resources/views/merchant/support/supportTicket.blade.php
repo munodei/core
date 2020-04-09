@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('content')
 
 
@@ -14,69 +14,49 @@
     </div>
 
 
+    <div class="row staff-grid-row">
 
+    @if(count($supports) >0)
+        @foreach($supports as $key => $support)
+            <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+              <div class="profile-widget">
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
-                <h3 class="tile-title ">All {{$page_title}}
-
-                    <a href="{{ route('user.ticket.open')}}" class="btn btn-success btn-md pull-right ">
-                        <i class="fa fa-plus"></i> Open New Support Ticket
-                    </a>
-
-                </h3>
-                <div class="tile-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover order-column" id="">
-                            <thead>
-                            <tr>
-                                <th>SL</th>
-                                <th>Date</th>
-                                <th>Ticket Number</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                                <th>Action</th>
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($supports as $key => $support)
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td>{{ $support->created_at->format('d F, Y h:i A') }}</td>
-                                    <td>#{{ $support->ticket }}</td>
-                                    <td>{{ $support->subject }}</td>
-                                    <td>
-                                        @if($support->status == 0)
-                                            <span class="badge badge-primary">Open</span>
-                                        @elseif($support->status == 1)
-                                            <span class="badge badge-success "> Answered</span>
-                                        @elseif($support->status == 2)
-                                            <span class="badge badge-info "> Customer Replied</span>
-                                        @elseif($support->status == 3)
-                                            <span class="badge badge-danger ">Closed</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('user.message', $support->ticket) }}" class="edit ">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            <tbody>
-                        </table>
-
-                        {{$supports->links()}}
-                    </div>
+                <div class="dropdown profile-action">
+                  <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                  </div>
                 </div>
+                <h4 class="user-name m-t-10 mb-0 text-ellipsis"><strong>SL</strong> : {{ ++$key }}</h4>
+                <div class="small text-muted"><strong>Date</strong> : {{ $support->created_at->format('d F, Y h:i A') }}</div>
+                <div class="small text-muted"><strong>Ticket Number</strong> : #{{ $support->ticket }}</div>
+                <div class="small text-muted"><strong>Subject</strong> : {{ $support->subject }}</div>
+                <div class="small text-muted"><strong>Status</strong> :   @if($support->status == 0)
+                      <span class="badge badge-primary">Open</span>
+                  @elseif($support->status == 1)
+                      <span class="badge badge-success "> Answered</span>
+                  @elseif($support->status == 2)
+                      <span class="badge badge-info "> Customer Replied</span>
+                  @elseif($support->status == 3)
+                      <span class="badge badge-danger ">Closed</span>
+                  @endif</div>
+                <div class="small text-muted"><strong>Action</strong> :  <a href="{{ route('user.message', $support->ticket) }}" class="edit ">
+                    <i class="fa fa-eye"></i>
+                </a></div>
+
+              </div>
             </div>
-        </div>
+        @endforeach
+        @else
+          <div class="col-md-12 col-sm-12 col-12">
+            <center> You Don't Have Any Support Tickets !!</center>
+          </div>
+
+        @endif
+
+      {{$supports->links()}}
+
     </div>
-
-
-
 
 
     @stop

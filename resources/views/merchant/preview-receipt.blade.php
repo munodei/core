@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/front/css/print.css')}}">
 @stop
@@ -22,7 +22,7 @@
                 <h3 class="tile-title">  Payout Now</h3>
 
                 <section class="invoice">
-  
+
                     <div class="row invoice-info text-center">
                         <div class="col-md-6 offset-md-3">
                             <address><h3 class="green">Your {{$basic->sitename}} Transaction No  : <span

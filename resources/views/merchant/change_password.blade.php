@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 
 @section('body')
     <div class="app-title">

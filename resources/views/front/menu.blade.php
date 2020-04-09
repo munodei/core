@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('css')
 @endsection

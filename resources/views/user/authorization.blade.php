@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('content')
 
@@ -54,9 +54,10 @@
                                     <input type="hidden" name="id" value="{{Auth::user()->id}}">
                                     <p>Your E-mail :<strong> {{Auth::user()->email}}</strong></p>
                                     <div class=" margin-bottom-20 ">
-                                            <input type="submit" class="submit-btn btn btn-block" value="Send Code">
+                                            <input type="submit" class="submit-btn btn btn-block btn-primary" value="Send Code">
                                     </div>
                                 </form>
+
 
 
                                 <div class="margin-top-20"></div>
@@ -65,10 +66,10 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{Auth::user()->id}}">
 
-                                    <div class="form-element has-icon margin-bottom-20">
+                                    <div class="form-element form-group has-icon margin-bottom-20">
                                         <input name="email_code" type="text"
                                                placeholder="Enter  Code"
-                                               class="input-field" required autofocus>
+                                               class="input-field form-control form-control-lg" required autofocus>
                                         @if ($errors->has('email_code'))
                                             <span class="error ">
                                                 <strong>{{ $errors->first('email_code') }}</strong>
@@ -77,7 +78,7 @@
                                     </div>
 
                                     <div class=" margin-bottom-20 ">
-                                        <input type="submit" class="submit-btn btn btn-block" value="Submit">
+                                        <input type="submit" class="submit-btn btn btn-block btn-primary" value="Submit">
                                     </div>
                                 </form>
 
@@ -121,10 +122,10 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{Auth::user()->id}}">
 
-                                    <div class="form-element has-icon margin-bottom-20">
+                                    <div class="form-element form-group has-icon margin-bottom-20">
                                         <input name="email_code" type="text"
                                                placeholder="Enter  Code"
-                                               class="input-field" required autofocus>
+                                               class="input-field form-control" required autofocus>
                                         @if ($errors->has('email_code'))
                                             <span class="error ">
                                                 <strong>{{ $errors->first('email_code') }}</strong>
@@ -133,7 +134,7 @@
                                     </div>
 
                                     <div class=" margin-bottom-20 ">
-                                        <input type="submit" class="submit-btn btn btn-block" value="Submit">
+                                        <input type="submit" class="submit-btn btn btn-block btn-primary" value="Submit">
                                     </div>
                                 </form>
 
@@ -177,10 +178,10 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{Auth::user()->id}}">
 
-                                    <div class="form-element has-icon margin-bottom-20">
+                                    <div class="form-element form-group has-icon margin-bottom-20">
                                         <input name="sms_code" type="text"
                                                placeholder="Enter  Code"
-                                               class="input-field" required autofocus>
+                                               class="input-field form-control" required autofocus>
                                         @if ($errors->has('sms_code'))
                                             <span class="error ">
                                                 <strong>{{ $errors->first('sms_code') }}</strong>
@@ -189,7 +190,7 @@
                                     </div>
 
                                     <div class=" margin-bottom-20 ">
-                                        <input type="submit" class="submit-btn btn btn-block" value="Submit">
+                                        <input type="submit" class="submit-btn btn btn-block btn-primary" value="Submit">
                                     </div>
                                 </form>
 

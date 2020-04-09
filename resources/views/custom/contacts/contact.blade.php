@@ -1,4 +1,4 @@
-@extends('custom.admin')
+@extends('merchant-1')
 
 @section('body')
     <div class="app-title">
@@ -14,27 +14,27 @@
 
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-3">
             <div class="tile">
                 <h4 class="tile-title">
                     <i class="fa fa-user"></i> {{ $user->firstname }} {{ $user->lastname }} Profile </h4>
                 <div class="tile-body">
-                    @if( file_exists($user->photo))
-                        <img src=" {{ $user->image }} " class="img-responsive propic"
-                             alt="Profile Pic">
+                    @if($user->photo!='')
+                        <img src=" {{ url($user->photo) }} " class="img-responsive propic"
+                             alt="{{ $user->firstname }} {{ $user->lastname }}" width="200px" height="200px">
                     @else
 
                         <img src=" {{url('assets/user/images/user-default.png')}} " class="img-responsive propic"
-                             alt="Profile Pic">
+                             alt="{{ $user->firstname }} {{ $user->lastname }}" width="200px" height="200px">
                     @endif
 
                     <hr>
-                   
+
                     <h5 class="bold">Name : {{ $user->firstname }} {{ $user->lastname }}</h5>
-                
+
                     <hr>
                     <p>
-                        <strong>Last Login : {{ Carbon\Carbon::parse($user->login_time)->diffForHumans() }}</strong>
+                        <strong>Your Last Login : {{ Carbon\Carbon::parse($user->login_time)->diffForHumans() }}</strong>
                         <br>
                     </p>
                     <hr>
@@ -50,7 +50,7 @@
         </div>
 
 
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-9">
             @php
                 $trans = \App\Deposit::whereUser_id($user->id)->count();
                 $transAmount = \App\Deposit::whereUser_id($user->id)->sum('amount');
@@ -73,9 +73,9 @@
 
 
                         <form id="form" method="POST" action="{{route('update-contact',[$user])}}}"
-                              enctype="multipart/form-data" name="editForm">
+                              enctype="multipart/form-data" name="editForm" disabled>
                             {{ csrf_field() }}
-                       
+
 
 
                             <div class="tile-body">
@@ -84,7 +84,7 @@
                                     <div class="form-group col-md-6 {{ $errors->has('firstname') ? ' has-error' : '' }}">
                                         <label> <strong>First Name</strong></label>
                                         <input type="text" name="firstname" class="form-control form-control-lg"
-                                               value="{{$user->firstname}}">
+                                               value="{{$user->firstname}}" disabled>
                                         @if ($errors->has('firstname'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('firstname') }}</strong>
@@ -94,7 +94,7 @@
                                     <div class="form-group col-md-6 {{ $errors->has('lastname') ? ' has-error' : '' }}">
                                         <label> <strong>Last Name</strong></label>
                                         <input type="text" name="lastname" class="form-control form-control-lg"
-                                               value="{{$user->lastname}}">
+                                               value="{{$user->lastname}}" disabled>
                                         @if ($errors->has('lastname'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('lastname') }}</strong>
@@ -106,7 +106,7 @@
                                     <div class="form-group col-md-6 {{ $errors->has('email') ? ' has-error' : '' }}">
                                         <label><strong>Email</strong></label>
                                         <input type="email" name="email" class="form-control form-control-lg"
-                                               value="{{$user->email}}">
+                                               value="{{$user->email}}" disabled>
                                         @if ($errors->has('email'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('email') }}</strong>
@@ -117,7 +117,7 @@
                                     <div class="form-group col-md-6 {{ $errors->has('mobilephone') ? ' has-error' : '' }}">
                                         <label><strong>Mobile phone</strong></label>
                                         <input type="text" name="mobilephone" class="form-control form-control-lg"
-                                               value="{{$user->mobilephone}}">
+                                               value="{{$user->mobilephone}}" disabled>
                                         @if ($errors->has('mobilephone'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('mobilephone') }}</strong>
@@ -132,7 +132,7 @@
                                     <div class="form-group col-md-3">
                                         <label> <strong>City</strong></label>
                                         <input type="text" name="city" class="form-control form-control-lg"
-                                               value="{{$user->city}}">
+                                               value="{{$user->city}}" disabled>
                                         @if ($errors->has('city'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('city') }}</strong>
@@ -143,7 +143,7 @@
                                     <div class="form-group col-md-3">
                                         <label><strong>Zip Code</strong></label>
                                         <input type="text" name="zip_code" class="form-control form-control-lg"
-                                               value="{{$user->zip_code}}">
+                                               value="{{$user->zip_code}}" disabled>
                                         @if ($errors->has('zip_code'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('zip_code') }}</strong>
@@ -154,7 +154,7 @@
                                     <div class="form-group col-md-6">
                                         <label><strong>Address</strong></label>
                                         <input type="text" name="address" class="form-control form-control-lg"
-                                               value="{{$user->address}}">
+                                               value="{{$user->address}}" disabled>
                                         @if ($errors->has('address'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('address') }}</strong>
@@ -166,7 +166,7 @@
                                     <div class="form-group col-md-12 ">
                                         <label><strong>Country</strong></label>
 
-                                        <select name="country_id" class="form-control form-control-lg" >
+                                        <select name="country_id" class="form-control form-control-lg" disabled>
                                             <option value="">Select Country</option>
                                             @foreach($country as $data)
                                             <option value="{{$data->id}}" @if($data->id == $user->country_id) selected @endif>{{$data->name}}</option>
@@ -181,11 +181,6 @@
                             </div>
 
                             <div class="tile-footer">
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <button type="submit" class="btn btn-lg btn-primary btn-block">Update</button>
-                                    </div>
-                                </div>
                             </div>
 
                         </form>
@@ -260,5 +255,3 @@
         new nicEditor().panelInstance('merchant_info');
     </script>
 @stop
-
-

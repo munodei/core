@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('content')
     <div class="app-title">
         <div>
@@ -41,16 +41,30 @@
                                     <li class="list-group-item "> Payable :
                                         <strong>{{$data->charge + $data->amount}} </strong>{{ $basic->currency }}</li>
 
-
+                                    @if($data->gateway_id != '515' && $data->gateway_id !='514')
                                     <li class="list-group-item"> In USD :
                                         <strong>${{$data->usd}}</strong>
                                     </li>
+                                    @elseif($data->gateway_id == '515' || $data->gateway_id == '514')
+                                    <li class="list-group-item"> To Add  :
+                                        <strong>{{$data->amount}}</strong>{{ $basic->currency }} to your account @if($data->gateway_id == '514') Deposit @else Transfer @endif <strong>{{$data->charge + $data->amount}} </strong>{{ $basic->currency }}
+                                    </li>
+                                    <li class="list-group-item">
+                                      Bank  :  FNB <br>
+                                      Account Number  :  <strong>{{$data->val1}}</strong> &nbsp; Branch Code  : <strong>{{$data->val2}}</strong><br>
+                                    </li>
 
+                                    <li class="list-group-item">
+                                      Use Your Merchant Code as Your Reference :  <strong>{{ auth()->user()->merchant_identity }}</strong><br>
+                                    </li>
+                                    @endif
+                                      @if($data->gateway_id != '515' && $data->gateway_id !='514')
                                     <li class="list-group-item">
                                         <div class="btn-wrapper">
                                             <input type="submit" class="btn btn-primary btn-lg btn-block" id="btn-confirm" value="Pay Now">
                                         </div>
                                     </li>
+                                    @endif
                                 </ul>
                                 <br><br>
                             </div>

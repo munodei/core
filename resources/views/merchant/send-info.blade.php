@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('css')
 @stop
 @section('content')
@@ -20,7 +20,7 @@
                 <h3 class="tile-title"> Send Money</h3>
 
                 <section class="invoice tile-body">
-  
+
                     <div class="row invoice-info">
                         <div class="col-4 offset-md-2"><strong>Sending From:</strong>
                             <address><h4>{{$sendMoney->fromCurrency->name}}</h4><br>
@@ -46,7 +46,7 @@
                                     <div class="form-group col-md-12">
                                         <input type="hidden" value="{{$sendMoney->id}}" name="id">
                                         <label for="name" ><strong>Name</strong></label>
-                                        <input class="form-control form-control-lg" name="sender_name"  type="text"  placeholder="Sender Name ...">
+                                        <input class="form-control form-control-lg" name="sender_name"  type="text"  placeholder="Sender Name ..." value="{{ auth()->user()->fname }} {{ auth()->user()->lname }}">
                                         <small class="form-text text-muted" >Name must be fill up.</small>
 
                                         @if ($errors->has('sender_name'))
@@ -56,7 +56,7 @@
 
                                     <div class="form-group col-md-12">
                                         <label for="name" ><strong>Phone</strong></label>
-                                        <input class="form-control form-control-lg" name="sender_phone"  type="text"  placeholder="Enter  Sender Number ...">
+                                        <input class="form-control form-control-lg" name="sender_phone"  type="text"  placeholder="Enter  Sender Number ..." value="{{ auth()->user()->phone }}">
                                         <small class="form-text text-muted" >Phone Number  must be fill up.</small>
 
                                         @if ($errors->has('sender_phone'))
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="name" ><strong>Address</strong></label>
-                                        <textarea name="sender_address"  class="form-control form-control-lg" rows="5" placeholder="Sender Address"></textarea>
+                                        <textarea name="sender_address"  class="form-control form-control-lg" rows="5" placeholder="Sender Address" value="{{ auth()->user()->address }}"></textarea>
                                     </div>
 
 
@@ -77,8 +77,8 @@
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label for="name" ><strong>Name</strong></label>
-                                        <input class="form-control form-control-lg" name="name" id="name" type="text"  placeholder="Enter  Recipient Name ...">
-                                        <small class="form-text text-muted" >Name must be fill up.</small>
+                                        <input class="form-control form-control-lg" name="name" id="name" type="text"  placeholder="Enter  Recipient Name ..." required autocomplete="off">
+                                        <small class="form-text text-muted" >If name does show in the drop down add it in your contacts!</small>
 
                                         @if ($errors->has('name'))
                                             <strong class="error">{{ $errors->first('name') }}</strong>

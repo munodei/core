@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('content')
     <!-- breadcrumb area start -->
@@ -51,8 +51,8 @@
                             <input type="hidden" name="token" value="{{ $token }}">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="form-element margin-bottom-20">
-                                        <input type="email" name="email" value="{{$email}}" class="input-field" placeholder="Email Address" readonly>
+                                    <div class="form-element form-group margin-bottom-20">
+                                        <input type="email" name="email" value="{{$email}}" class="input-field form-control" placeholder="Email Address" readonly>
                                         @if ($errors->has('email'))
                                             <span class="error ">
                                                 <strong>{{ $errors->first('email') }}</strong>
@@ -62,8 +62,8 @@
                                 </div>
 
                                 <div class="col-lg-12">
-                                    <div class="form-element margin-bottom-20">
-                                        <input type="password" name="password"  class="input-field" placeholder="New Password">
+                                    <div class="form-element form-group margin-bottom-20">
+                                        <input type="password" name="password"  class="input-field form-control" placeholder="New Password">
                                         @if ($errors->has('password'))
                                             <span class="error">
                                                 <strong>{{ $errors->first('password') }}</strong>
@@ -72,8 +72,8 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-element margin-bottom-20">
-                                        <input type="password" name="password_confirmation"  class="input-field" placeholder="Re-enter Password">
+                                    <div class="form-element form-group margin-bottom-20">
+                                        <input type="password" name="password_confirmation"  class="input-field form-control" placeholder="Re-enter Password">
                                     </div>
                                 </div>
 

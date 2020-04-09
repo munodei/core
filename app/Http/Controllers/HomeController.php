@@ -2,57 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Image;
+use Session;
+use App\Trx;
+use App\User;
 use App\Country;
 use App\Deposit;
 use App\Gateway;
-use App\GeneralSettings;
-use App\SendMoney;
-use App\SupportMessage;
-use App\SupportTicket;
-use App\Trx;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-use Auth;
-
-use App\User;
 use Carbon\Carbon;
+use App\SendMoney;
+use App\SupportTicket;
+use App\SupportMessage;
+use App\GeneralSettings;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Str;
-use Session;
-use Image;
+use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware('auth');
 
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
 
-
-        // Artisan::call('view:clear');
-        // Artisan::call('route:clear');
-        // Artisan::call('config:clear');
-        // Artisan::call('cache:clear');
-        // if (function_exists('exec')){
-        //     exec('rm ' . storage_path('logs/*'));
-        // }
-        // $this->rrmdir(storage_path('logs/'));
-        
         $auth = Auth::user();
         $data['page_title'] = "Dashboard";
 

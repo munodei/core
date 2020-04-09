@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 
 
 @section('css')
@@ -37,7 +37,7 @@
                                                 <div class="tgc-calculator-select">
                                                     <div class="calculator-country-select-wrapper">
                                                         <select name="fromCountries" id="fromCountries"
-                                                                class="calculator-select-country q-from-country">
+                                                                class="calculator-select-country col-md-12 q-from-country">
                                                             @foreach($country as $data)
                                                                 <option value="{{$data->id}}" data-id="{{$data->id}}" data-code="{{$data->code}}"
                                                                         data-rate="{{$data->rate}}"
@@ -50,7 +50,7 @@
 
                                                     </div>
                                                     <input type="tel"
-                                                           class="tgc-calculator-select-amount from-amount-enter q-calculator-from-amount-select"
+                                                           class="tgc-calculator-select-amount col-md-12 from-amount-enter q-calculator-from-amount-select"
                                                            autocomplete="off" placeholder="0.00"
                                                            onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')">
                                                     <span class="calculator-select-currency q-from-currency-selector"></span>
@@ -60,8 +60,8 @@
                                                 <h5>Receiver gets in</h5>
                                                 <div class="tgc-calculator-select">
                                                     <div class="calculator-country-select-wrapper">
-                                                        <select name="toCountries" id="toCountries"
-                                                                class="calculator-select-country q-to-country">
+                                                        <select name="toCountries"  id="toCountries"
+                                                                class="calculator-select-country col-md-12 q-to-country">
                                                             @foreach($countryLatest as $data)
                                                                 <option value="{{$data->id}}" data-id="{{$data->id}}" data-code="{{$data->code}}"
                                                                         data-rate="{{$data->rate}}"
@@ -74,7 +74,7 @@
 
                                                     </div>
                                                     <input type="tel"
-                                                           class="tgc-calculator-select-amount to-amount-enter  q-calculator-to-amount-select"
+                                                           class="tgc-calculator-select-amount to-amount-enter col-md-12  q-calculator-to-amount-select"
                                                            value=""
                                                            placeholder="0.00"
                                                            onkeyup="this.value = this.value.replace (/^\.|[^\d\.]/g, '')"
@@ -294,4 +294,3 @@
         })
     </script>
 @endsection
-

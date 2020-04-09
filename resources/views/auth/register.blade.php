@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 @section('content')
 
     <!-- breadcrumb area start -->
@@ -42,9 +42,10 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <div class="form-element margin-bottom-20">
+                                        <div class="form-element form-group margin-bottom-20">
+                                          <label>Enter First Name</label>
                                             <input type="text" name="fname" value="{{ old('fname') }}"
-                                                   class="input-field" placeholder="First Name">
+                                                   class="form-control" placeholder="First Name">
                                             @if ($errors->has('fname'))
                                                 <span class="error ">
                                                 <strong>{{ $errors->first('fname') }}</strong>
@@ -54,9 +55,10 @@
                                     </div>
 
                                     <div class="col-lg-6">
-                                        <div class="form-element margin-bottom-20">
+                                        <div class="form-element form-group margin-bottom-20">
+                                            <label>Enter Last Name</label>
                                             <input type="text" name="lname" value="{{ old('lname') }}"
-                                                   class="input-field" placeholder="Last Name">
+                                                   class="form-control" placeholder="Last Name">
                                             @if ($errors->has('lname'))
                                                 <span class="error ">
                                                 <strong>{{ $errors->first('lname') }}</strong>
@@ -66,9 +68,10 @@
                                     </div>
 
                                     <div class="col-lg-6">
-                                        <div class="form-element margin-bottom-20">
+                                        <div class="form-element form-group margin-bottom-20">
+                                          <label>Enter Username</label>
                                             <input type="text" name="username" value="{{ old('username') }}"
-                                                   class="input-field" placeholder="Username">
+                                                   class="form-control" placeholder="Username">
                                             @if ($errors->has('username'))
                                                 <span class="error">
                                                 <strong>{{ $errors->first('username') }}</strong>
@@ -78,9 +81,10 @@
                                     </div>
                                     <div class="col-lg-6">
 
-                                        <div class="form-element margin-bottom-20">
+                                        <div class="form-element form-group margin-bottom-20">
+                                          <label>Enter Contact Number</label>
                                             <input type="text" name="phone" value="{{ old('phone') }}"
-                                                   class="input-field" placeholder="Contact Number">
+                                                   class="form-control" placeholder="Contact Number">
                                             @if ($errors->has('phone'))
                                                 <span class="error">
                                                 <strong>{{ $errors->first('phone') }}</strong>
@@ -91,9 +95,10 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <div class="form-element margin-bottom-20">
+                                        <div class="form-element form-group margin-bottom-20">
+                                          <label>Enter Email Address</label>
                                             <input type="email" name="email" value="{{ old('email') }}"
-                                                   class="input-field" placeholder="Email Address">
+                                                   class="form-control" placeholder="Email Address">
                                             @if ($errors->has('email'))
                                                 <span class="error ">
                                                 <strong>{{ $errors->first('email') }}</strong>
@@ -103,15 +108,15 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <div class="form-element margin-bottom-20 has-icon">
-
-                                            <select name="country"  class="input-field ">
+                                        <div class="form-element form-group margin-bottom-20 has-icon">
+                                            <label>Select Country</label>
+                                            <select name="country"  class="form-control ">
                                                 <option value="">Select Country</option>
                                                 @foreach($country as $data)
                                                     <option value="{{$data->id}}" {{(old('country') == $data->id?'selected':'')}} >  {{$data->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <div class=" @if($errors->has('country')) top-up10 @else  the-icon @endif"><i class="fas fa-arrow-down"></i></div>
+                                            <div class=" @if($errors->has('country')) top-up10 @else  the-icon @endif"><i class="fa fa-arrow-down"></i></div>
 
 
                                             @if ($errors->has('country'))
@@ -124,8 +129,9 @@
 
 
                                     <div class="col-lg-6">
-                                        <div class="form-element margin-bottom-20">
-                                            <input type="password" name="password" class="input-field"
+                                        <div class="form-element form-group margin-bottom-20">
+                                          <label>Enter Password</label>
+                                            <input type="password" name="password" class="form-control"
                                                    placeholder="Password">
                                             @if ($errors->has('password'))
                                                 <span class="error ">
@@ -136,15 +142,16 @@
                                     </div>
                                     <div class="col-lg-6">
 
-                                        <div class="form-element margin-bottom-20">
-                                            <input type="password" name="password_confirmation" class="input-field"
+                                        <div class="form-element form-group margin-bottom-20">
+                                          <label>Confirm Password</label>
+                                            <input type="password" name="password_confirmation" class="form-control"
                                                    placeholder="Confirm Password">
                                         </div>
                                     </div>
 
 
-                                    <div class="col-lg-12">
-                                        <div class="checkbox-area margin-bottom-20">
+                                    <div class="col-lg-12" >
+                                        <div class="checkbox-area margin-bottom-20 form-group">
                                             <div class="checkbox-element">
                                                 <div class="checkbox-wrapper">
                                                     <label class="checkbox-inner">I agree with the terms & conditions
@@ -154,9 +161,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btn-wrapper">
+                                        <div class="btn-wrapper form-group">
                                             <div class="left-content">
-                                                <input type="submit" class="submit-btn" value="Regsiter">
+                                                <input type="submit" class="submit-btn btn-primary account-btn" value="Register">
                                             </div>
                                         </div>
                                     </div>

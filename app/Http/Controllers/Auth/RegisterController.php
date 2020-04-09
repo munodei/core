@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Contact;
+use App\UserEntry;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -122,6 +124,48 @@ class RegisterController extends Controller
             'phone_time' => $phone_time,
             'password' => Hash::make($data['password']),
         ]);
+
+        $full_name = $data['fname'];
+        $full_name .= ' ';
+        $full_name .= $data['lname'];
+
+        $contact = contact::create([
+                                    'firstname'        => $data['fname'],
+                                    'lastname'         => $data['lname'],
+                                    'additional'       => $additional ?? '',
+                                    'prefix'           => $prefix ?? '',
+                                    'suffix'           => $suffix ?? '',
+                                    'mobilephone'      => $data['phone'],
+                                    'workphone'        => $workphone ?? '',
+                                    'city'             => $city ?? '',
+                                    'country_id'       => $data['country'] ?? '',
+                                    'zip_code'         => $zip_code ?? '',
+                                    'jobtitle'         => $jobtitle ?? '',
+                                    'role'             => $role ?? '',
+                                    'email'            => $data['email'],
+                                    'address'          => $contact_id->address ?? $address ?? '',
+                                    'label'            => $label ?? '',
+                                    'url'              => $url ?? '',
+                                    'photo'            => $fileNameToStore  ?? $contact_id->photo ?? '/assets/images/user/user-default.png',
+                                    'user_id'          => $user->id ?? $id,
+                                    'users'            => $user->id ?? $id,
+                                    'about'            => $about ?? '',
+                                    'slug'             => unique_slug($full_name,'Contact'),
+                                    'contact_id'       => $user->id,
+                                    'created_at'       => date('Y-m-d h:i:s'),
+                                    'updated_at'       => date('Y-m-d h:i:s')
+
+                                    ]);
+
+            $entry = UserEntry::create([
+
+                                'user_id'=>$user->id,
+                                'entry_id'=>$contact->id,
+                                'entry'=>'contact',
+                                'owner'=>isset($user->id)?0:1,
+                                'created_at'=>date('Y-m-d h:i:s')
+
+                                ]);
 
 
         return $user;

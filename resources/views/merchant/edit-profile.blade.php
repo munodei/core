@@ -1,4 +1,4 @@
-@extends('merchant')
+@extends('merchant-1')
 @section('import-css')
     <link href="{{ asset('assets/admin/css/bootstrap-fileinput.css') }}" rel="stylesheet">
 @stop

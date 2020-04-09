@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('merchant-1')
 
 @section('content')
 
@@ -19,12 +19,9 @@
     <!-- login page content area start -->
     <section class="login-page-area">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title">
-                        <h2 class="title">Login Your Account</h2>
-                    </div>
-                </div>
+
+            <div class="account-logo">
+              <a href="{{ url('/') }}"><img src="{{asset('assets/images/logo/logo.png')}}" alt="{{ $basic->sitename }}"></a>
             </div>
 
 
@@ -55,24 +52,26 @@
 
                         <form action="{{ route('login') }}" method="post">
                             @csrf
-                            <div class="form-element has-icon margin-bottom-20">
-                                <input type="text" class="input-field" name="username" placeholder="Enter Username"  value="{{ old('username') }}">
+                            <div class="form-element form-group has-icon margin-bottom-20">
+                              <label>Enter Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Enter Username"  value="{{ old('username') }}">
                                 <div class="the-icon">
-                                    <i class="far fa-user"></i>
+                                    <i class="fa fa-user"></i>
                                 </div>
                                 @if ($errors->has('username'))
-                                    <span class="error ">
+                                    <span class="error">
                                                 <strong>{{ $errors->first('username') }}</strong>
                                             </span>
                                 @endif
                             </div>
-                            <div class="form-element has-icon margin-bottom-20">
-                                <input type="password" class="input-field" name="password" placeholder="Enter Password">
+                            <div class="form-element form-group has-icon margin-bottom-20">
+                              <label>Enter Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Enter Password">
                                 <div class="the-icon">
-                                    <i class="fas fa-lock"></i>
+                                    <i class="fa fa-lock"></i>
                                 </div>
                             </div>
-                            <div class="checkbox-area margin-bottom-20">
+                            <div class="checkbox-area form-group margin-bottom-20">
                                 <div class="checkbox-element">
                                     <div class="checkbox-wrapper">
                                         <label class="checkbox-inner">Keep me logged in
@@ -82,9 +81,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="btn-wrapper margin-bottom-20">
+                            <div class="btn-wrapper form-group margin-bottom-20">
                                 <div class="left-content">
-                                    <input type="submit" class="submit-btn" value="Login">
+                                    <input type="submit" class="submit-btn btn btn-primary account-btn" value="Login">
                                 </div>
                                 <div class="right-content">
                                     <a href="{{ route('password.request') }}" class="anchor">Forgot Password?</a>

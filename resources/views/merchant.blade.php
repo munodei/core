@@ -74,19 +74,35 @@
             </a>
         </li>
 
-        <li class="treeview @if(request()->path() == 'user/deposit') is-expanded
-                @elseif(request()->path() == 'user/deposit-log') is-expanded
+        <li class="treeview @if(Route::currentRouteName() == 'contacts.index') is-expanded
+                @elseif(Route::currentRouteName() == 'contacts.create') is-expanded
                 @endif">
             <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users"></i><span
                     class="app-menu__label">Contacts</span> <i
                     class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li class="@if(request()->path() == 'user/deposit-log') active @endif"><a class="treeview-item "
+                <li class="@if(Route::currentRouteName() == 'contacts.index')  active @endif"><a class="treeview-item "
                                                                                           href="{{route('contacts.index')}}"><i
                             class="icon fa fa-users"></i> All Contacts</a></li>
-                <li class="@if(request()->path() == 'user/deposit') active @endif "><a class="treeview-item "
+                <li class="@if(Route::currentRouteName() == 'contacts.create')  active @endif "><a class="treeview-item "
                                                                                        href="{{route('contacts.create')}}"><i
-                            class="icon fa a-user"></i> Add Contacts </a></li>
+                            class="icon fa fa-user"></i> Add Contacts </a></li>
+            </ul>
+        </li>
+
+        <li class="treeview @if(Route::currentRouteName() == 'polls.index') is-expanded
+                @elseif(Route::currentRouteName() == 'polls.create') is-expanded
+                @endif">
+            <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span
+                    class="app-menu__label">Your Polls</span> <i
+                    class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li class="@if(Route::currentRouteName() == 'polls.index')  active @endif"><a class="treeview-item "
+                                                                                          href="{{route('polls.index')}}"><i
+                            class="icon fa fa-bar-chart"></i> All Your Polls</a></li>
+                <li class="@if(Route::currentRouteName() == 'polls.create')  active @endif "><a class="treeview-item "
+                                                                                       href="{{route('polls.create')}}"><i
+                            class="icon fa fa-plus"></i> Add Poll </a></li>
             </ul>
         </li>
 
