@@ -18,7 +18,7 @@ class ContactController extends Controller
     {
 
       $this->middleware('auth');
-      $this->icons = '<i class="material-icons">user</i>';
+      $this->icons = '<i class="material-icons">account_circle</i>';
 
     }
 

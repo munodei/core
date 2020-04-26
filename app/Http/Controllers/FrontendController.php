@@ -7,6 +7,7 @@ use App\Country;
 use App\Faq;
 use App\Menu;
 use App\Post;
+use App\Service;
 use App\Subscriber;
 use App\Testimonial;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $data['page_title'] = "Home";
+        $data['page_title'] = "International Convenience Online Remittance - Send ,Receive and Purchase Online";
         $data['testimonial'] = Testimonial::latest()->get();
 
         $data['country'] =  Country::whereStatus(1)->orderBy('name','asc')->get();
@@ -34,7 +35,7 @@ class FrontendController extends Controller
 
     public function details($id)
     {
-         $post = Post::find($id);
+         $post = Post::where('slug',$id)->first();
          if($post)
          {
              $data['page_title'] =  "Blog Details";
@@ -42,6 +43,52 @@ class FrontendController extends Controller
              return view('front.details',$data);
          }
          abort(404);
+    }
+
+    public function outlets(Request $request)
+    {
+      $franchise = \App\Franchise::where('status',1)->paginate(20);
+
+      if($request->has('franchise')){
+        $franchise = \App\Franchise::where([['status',1],['franchise','LIKE','%'.$request->input('franchise').'%']])->paginate(20);
+      }
+
+      $page_title = 'Supported Franchises';
+      return view('custom.franchises.index',compact('franchise','page_title'));
+    }
+
+    public function franchisesInformation($franchise)
+    {
+      $info =  \App\Franchise::where('slug',$franchise)->first();
+      $data['page_title'] =  $info->franchise;
+      $data['post'] =  $info;
+      return view('custom.franchises.details',$data);
+
+    }
+
+    public  function franchisesProducts(Request $request,$country,$franchise){
+
+      $info =  \App\Franchise::where('slug',$franchise)->first();
+      $data['page_title'] =  $info->franchise;
+      $data['outlet'] =  $info;
+      $data['products'] =  \App\Product::where('franchise_id',$info->id)->paginate(20);
+      if($request->has('product')){
+        $data['products']  = \App\Product::where([['franchise_id',$info->id],['product_name','LIKE','%'.$request->input('product').'%']])->paginate(20);
+      }
+
+      return view('custom.franchises.products',$data);
+
+    }
+
+    public function service($slug)
+    {
+      $service = Service::where([['status',1],['slug',$slug]])->first();
+      if($service)
+      {
+        $page_title =  $service->service." Details";
+        return view('front.service',compact('page_title','service'));
+      }
+
     }
 
     public function faqs()

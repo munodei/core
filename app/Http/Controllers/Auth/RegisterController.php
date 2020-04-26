@@ -167,7 +167,7 @@ class RegisterController extends Controller
 
                                 ]);
 
-
+        //  self::registered($user);                      
         return $user;
     }
 

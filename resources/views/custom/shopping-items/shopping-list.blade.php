@@ -57,7 +57,7 @@
                                     <div class="task-container">
                                       <span class="task-action-btn task-check">
                                         <a href="#" class="avatar" title="{{ $shopping_item->shopping_item_description }}">
-                                          <img alt="{{ $shopping_item->shopping_item_description }}" width="37px" height="37px" src="{{ url('/') }}/core/{{ $shopping_item->photo }}">
+                                          <img alt="{{ $shopping_item->shopping_item_description }}" width="100%" height="100%" src="{{ $shopping_item->photo }}">
                                         </a>
                                       </span>
                                       <div class="small text-muted"><strong>Name :</strong> {{ str_limit($shopping_item->shopping_item_name,25) }}</div>

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Mail;
 use App\Etemplate;
 use App\GeneralSettings;
 use App\Advertisment;
@@ -20,12 +20,23 @@ if (!function_exists('send_email')) {
             $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
             $mm = str_replace("{{name}}", $name, $template);
-            $message = str_replace("{{message}}", $message, $mm);
+            $message1 = str_replace("{{message}}", $message, $mm);
+
+            $info = array('to' =>$to ,'subject'=>$subject,'from'=>$gnl->email,'sitename'=>$gnl->sitename.' Team');
+
+              Mail::send(['html' => 'email.account_verification'], ['message1'=>$message1],
+                        function ($message) use ($info) {
+                          $message->from($info['from'], $info['sitename']);
+                          $message->to($info['to']);
+                          $message->subject($info['subject']);
+              });
 
             if (@mail($to, $subject, $message, $headers)) {
                  echo 'Your message has been sent.';
+                 //die();
             } else {
                 echo 'There was a problem sending the email.';
+                 //die();
             }
         }
     }
@@ -129,13 +140,21 @@ if (!function_exists('send_email_verification')) {
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
         $mm = str_replace("{{name}}", $name, $template);
-        $message = str_replace("{{message}}", $message, $mm);
+        $message1 = str_replace("{{message}}", $message, $mm);
+        $info = array('to' =>$to ,'subject'=>$subject,'from'=>$gnl->email,'sitename'=>$gnl->sitename.' Team');
+        Mail::send(['html' => 'email.account_verification'], ['message1'=>$message1],
+                  function ($message) use ($info) {
+                    $message->from($info['from'], $info['sitename']);
+                    $message->to($info['to']);
+                    $message->subject($info['subject']);
+        });
 
-        if (@mail($to, $subject, $message, $headers)) {
-            // echo 'Your message has been sent.';
-        } else {
-            //echo 'There was a problem sending the email.';
-        }
+
+        // if (@mail($to, $subject, $message, $headers)) {
+        //     // echo 'Your message has been sent.';
+        // } else {
+        //     //echo 'There was a problem sending the email.';
+        // }
     }
 }
 
@@ -181,13 +200,21 @@ if (!function_exists('send_contact')) {
 
         $mm = "Hi Sir," . "<br><br>";
         $thanks = "Thanks, <br> <strong>$name</strong>";
-        $message = $mm . $message . $thanks;
+        $message1 = $mm . $message . $thanks;
 
-        if (@mail($to, $subject, $message, $headers)) {
-            // echo 'Your message has been sent.';
-        } else {
-            //echo 'There was a problem sending the email.';
-        }
+        $info = array('to' =>$to ,'subject'=>$subject,'from'=>$gnl->email,'sitename'=>$gnl->sitename.' Team');
+        Mail::send(['html' => 'email.account_verification'], ['message1'=>$message1],
+                  function ($message) use ($info) {
+                    $message->from($info['from'], $info['sitename']);
+                    $message->to($info['to']);
+                    $message->subject($info['subject']);
+        });
+
+        // if (@mail($to, $subject, $message, $headers)) {
+        //     // echo 'Your message has been sent.';
+        // } else {
+        //     //echo 'There was a problem sending the email.';
+        // }
 
     }
 }

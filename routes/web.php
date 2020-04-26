@@ -40,10 +40,27 @@ Route::post('/ipnvoguepay', 'PaymentController@ipnVoguePay')->name('ipn.voguepay
 
 Route::get('/', 'FrontendController@index')->name('main');
 Route::get('/blogs', 'FrontendController@blog')->name('blog');
-Route::get('/details/{id}/{slud}', 'FrontendController@details')->name('blog.details');
+Route::get('/more/{slug}', 'FrontendController@details')->name('blog.details');
 Route::get('/about', 'FrontendController@about')->name('about');
 Route::get('/faqs', 'FrontendController@faqs')->name('faqs');
 Route::get('/menu/{id}/{slug}', 'FrontendController@menu')->name('menu');
+Route::get('/service/{slug}', 'FrontendController@service')->name('service');
+
+Route::get('/franchises', 'FrontendController@outlets')->name('franchise.all');
+Route::post('/franchises', 'FrontendController@outlets')->name('franchise.all');
+
+Route::get('/franchise/{franchise}', 'FrontendController@franchisesInformation')->name('franchise.info');
+Route::post('/franchise/{franchise}', 'FrontendController@franchisesInformation')->name('franchise.info');
+
+Route::get('/franchise/{country}/{franchise}', 'FrontendController@franchisesProducts')->name('franchise.products');
+Route::post('/franchise/{country}/{franchise}', 'FrontendController@franchisesProducts')->name('franchise.products');
+
+Route::get('/{country}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+Route::get('/{country}/{state}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+Route::get('/{country}/{state}/{city}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+Route::get('/{country}/{state}/{city}/{neighbourhood}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+Route::get('/{country}/{state}/{city}/{neighbourhood}/{suburb}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+
 Route::post('/subscribe', 'FrontendController@subscribe')->name('subscribe');
 Route::get('/contact-us', 'FrontendController@contactUs')->name('contact-us');
 Route::post('/contact-us', 'FrontendController@contactSubmit')->name('contact-us');
@@ -86,16 +103,41 @@ Route::group(['middleware' => ['auth','CheckStatus']], function() {
         Route::get('/send-money/{trx}', 'HomeController@sendMoneyPreview')->name('send.money.preview');
         Route::post('/send-confirmed', 'HomeController@sendingConfirm')->name('send.confirm');
         Route::get('/send-invoice/{trx}', 'HomeController@sendInvoice')->name('send.invoice');
-        Route::get('/transfer-history', 'HomeController@sendingLog')->name('sendingLog');
+        Route::get('/send-history', 'HomeController@sendingLog')->name('sendingLog');
+
+
+        Route::get('/transfer-money','TransferMoneyController@transferMoney')->name('transfer.money');
+        Route::post('/transfer-money', 'TransferMoneyController@transferMoneyCheck')->name('transfer.money.check');
+        Route::get('/transfer-money/{trx}', 'TransferMoneyController@transferMoneyPreview')->name('transfer.money.preview');
+        Route::post('/transfer-confirmed', 'TransferMoneyController@TransferConfirm')->name('transfer.confirm');
+        Route::get('/transfer-invoice/{trx}', 'TransferMoneyController@transferInvoice')->name('transfer.invoice');
+        Route::get('/transfer-log', 'TransferMoneyController@transferLog')->name('transfer.log');
 
         Route::get('/payout-money', 'HomeController@withdraw')->name('merchant.withdraw');
         Route::post('/payout-money', 'HomeController@trxCheck')->name('withdraw.trxCheck');
         Route::post('/payout-confirm', 'HomeController@withdrawConfirm')->name('withdrawConfirm');
         Route::post('/payout-confirm', 'HomeController@withdrawConfirm')->name('withdrawConfirm');
         Route::get('/payout-log', 'HomeController@withdrawLog')->name('withdrawLog');
+
+
         //notifications
-        Route::resource('notifications', 'NotificationController');
+        Route::resource('notifications','NotificationController');
         Route::get('/read-notification/{id}','NotificationController@readNotification')->name('read-notification');
+        Route::get('/clear-notifications','NotificationController@clearNotifications')->name('clear-notifications');
+
+        //Outlets
+        Route::get('/franchise/{type}','Common\OutletsController@index')->name('outlets');
+        Route::get('/franchise/{outlet}/{department}','Common\OutletsController@outletDepartments')->name('outlet.departments');
+        Route::get('/franchise/{outlet}/{type}/{department}','Common\OutletsController@outletProducts')->name('outlet.products');
+
+        //delivery locations
+        Route::resource('contact-groups', 'ContactGroupController');
+        Route::any('add-contact-to-group','ContactGroupController@addContactToGroup')->name('add-contact-to-group');
+        Route::any('update-contact-group','ContactGroupController@update')->name('update-contact-group');
+        Route::any('share-contact-group','ContactGroupController@shareContactGroup')->name('share-contact-group');
+        Route::any('delete-contact-group','ContactGroupController@destroy')->name('delete-contact-group');
+
+
 
         //delivery locations
         Route::resource('delivery-locations', 'DeliveryLocationsController');
@@ -261,7 +303,28 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         // Country  Settings
         Route::resource('continent', 'ContinentController');
         Route::resource('country', 'CountryController');
+        Route::resource('state', 'StateController');
+        Route::resource('city', 'CityController');
+        Route::resource('neighbourhood', 'NeighbourhoodController');
+        Route::resource('suburb', 'SuburbController');
         Route::resource('merchant', 'MerchantController');
+
+        //Outlets settings
+        Route::resource('outlet', 'OutletController');
+        Route::resource('outlet-cat', 'OutletCatController');
+
+        //Outlet products
+        Route::resource('product', 'ProductController');
+        Route::get('product-assign-outlet/{id}', 'ProductController@assign')->name('product.assign.outlet');
+        Route::post('product-assign-outlet', 'ProductController@createAssignment')->name('product.assign.outlet1');
+
+        //Outlet products
+        Route::resource('product-category', 'ProCatController');
+        Route::resource('product-sub-category', 'ProSubCatController');
+
+        Route::resource('outlet-cat-outlet', 'OutletCatOutletController');
+        Route::get('outlet-cat-outlet-create/{id}', 'OutletCatOutletController@create')->name('outlet-cat-outlet-create');
+        Route::get('outlet-cat-outlet-delete/{outlet_id}/{outlet_cat_id}', 'OutletCatOutletController@edit')->name('outlet-cat-outlet-delete');
 
 
         //Gateway
@@ -289,6 +352,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('faqs-edit/{id}', 'FaqController@editFaqs')->name('faqs-edit');
         Route::put('faqs-edit/{id}', 'FaqController@updateFaqs')->name('faqs-update');
         Route::delete('faqs-delete', 'FaqController@deleteFaqs')->name('faqs-delete');
+
+        /*Manage Faq*/
+        Route::get('service-faqs-create', 'ServiceFaqController@createFaqs')->name('service-faqs-create');
+        Route::post('service-faqs-create', 'ServiceFaqController@storeFaqs')->name('service-faqs-store');
+        Route::get('service-faqs', 'ServiceFaqController@allFaqs')->name('service-faqs');
+        Route::get('service-faqs-edit/{id}', 'ServiceFaqController@editFaqs')->name('service-faqs-edit');
+        Route::put('service-faqs-edit/{id}', 'ServiceFaqController@updateFaqs')->name('service-faqs-update');
+        Route::delete('service-faqs-delete', 'ServiceFaqController@deleteFaqs')->name('service-faqs-delete');
 
         //    SubscriberController
         Route::get('/subscribers', 'SubscriberController@manageSubscribers')->name('manage.subscribers');

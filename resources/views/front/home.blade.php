@@ -1,6 +1,13 @@
 @extends('merchant-1')
 
 @section('css')
+<meta property="og:image" content="{{asset('assets/images/logo/logo.png')}}" />
+<meta property="og:image:secure_url" content="{{asset('assets/images/logo/logo.png')}}" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:image:alt" content="{{ $basic->sitename }} | Convenience remittance which empowers you to enhance." />
+<meta property="og:description" content="{{ $basic->sitename }}| Convenience remittance which empowers you to enhance." />
     <link rel="stylesheet" href="{{asset('assets/front/css/calculation.css')}}">
     <link rel="stylesheet" href="{{asset('assets/front')}}/flags/flags.css">
     <link rel="stylesheet" href="{{asset('assets/front')}}/flags/dd.css">
@@ -240,7 +247,7 @@
 
                     <div class="left-content-area"><!-- left content area -->
                           <center>  <h3 class="title">{{$basic->testimonial_h}}</h3>
-                        <p>{{$basic->testimonial_p}}</p></center>
+                        <!-- <p>{{$basic->testimonial_p}}</p> --></center>
                     </div>
 
                 </div>
@@ -253,7 +260,7 @@
         </div>
         <div class="container">
 
-      <div class="row">
+    <!--   <div class="row">
           @foreach($testimonial as $data)
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
@@ -273,7 +280,7 @@
 
 
 
-      </div>
+      </div> -->
     </div>
     </section>
     <!-- testimonial area end -->

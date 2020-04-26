@@ -55,7 +55,7 @@
 
                       <span class="task-action-btn task-check">
                         <a href="#" class="avatar">
-                          <img alt="{{ $shopping_item->shopping_item_name }}" width="40px" height="40px" src="{{ url('/') }}/core/{{ $shopping_item->photo }}">
+                          <img alt="{{ $shopping_item->shopping_item_name }}" width="100%" height="100%" src="{{ $shopping_item->photo }}">
                         </a>
                       </span>
                       <a href="#">
@@ -120,7 +120,7 @@
 
                               <span class="task-action-btn task-check">
                                 <a href="#" class="avatar">
-                                  <img alt="{{ $shopping_item->product_name }}" width="33px" height="33px" src="{{ url('/') }}/core/{{ $shopping_item->product_photo }}">
+                                  <img alt="{{ $shopping_item->product_name }}" width="100%" height="100%" src="{{ $shopping_item->photo }}">
                                 </a>
                               </span>
                               <div class="small text-muted"><strong>Name :</strong> {{ $shopping_item->product_name }}</div>
@@ -268,7 +268,7 @@
 
 <!-- Share Shopping Item Modal -->
 
-<!-- Delete Shopping Item -->
+<!-- Add Product To your Shopping Items-->
 
 <div id="AddShoppingItem" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -294,9 +294,9 @@
   </div>
 </div>
 
-<!-- Share Shopping Item Modal -->
+<!-- Add Product To your Shopping Items -->
 
-<!-- Delete Shopping Item -->
+<!-- Buy Now Shopping Item -->
 
 <div id="BuyNow" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -322,7 +322,7 @@
   </div>
 </div>
 
-<!-- Share Shopping Item Modal -->
+<!--  Buy Now Shopping Item -->
 
 
 

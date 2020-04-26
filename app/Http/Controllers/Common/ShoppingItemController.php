@@ -265,7 +265,7 @@ class ShoppingItemController extends Controller
                                                     'shopping_item_price'=> $product->product_price ?? '',
                                                     'shopping_item_brand'=> $product->product_brand,
                                                     'slug'=>unique_slug($product->product_name,'ShoppingItem') ?? '',
-                                                    'photo'=>$product->product_photo ?? '/assets/uploads/shopping-items/images.png',
+                                                    'photo'=>$product->photo ?? url('/').'/assets/uploads/shopping-items/images.png',
                                                     'created_at'=>date('Y-m-d h:i:s'),
                                                     'updated_at'=>date('Y-m-d h:i:s')
                                                     ]);

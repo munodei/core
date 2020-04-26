@@ -33,6 +33,12 @@ class NotificationController extends Controller
 
     }
 
+    public function clearNotifications(Request $request)
+    {
+      $id = $request->user()->id;
+      Notification::where('user_id',$id)->update(['is_read'=>1]);
+      return redirect()->back()->with('success','You have cleared all your notifications!');
+    }
 
     public function store(Request $request)
     {

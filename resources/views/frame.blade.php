@@ -9,7 +9,7 @@
       <meta name="robots" content="noindex, nofollow">
       <title>{{  $page_title ?? '' }} | {{ $basic->sitename }}</title>
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{ url('/') }}/assets/smarthr/img/favicon.png">
+        <link rel="icon" type="image/png" href="{{asset('assets/images/logo/favicon.png')}}" />
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ url('/') }}/assets/smarthr/css/bootstrap.min.css">
         <!-- Fontawesome CSS -->
@@ -39,7 +39,7 @@
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="{{ url('/') }}" class="logo">
-          						<img src="{{asset('assets/images/logo/logo.png')}}" width="80" height="80" alt="">
+          						<img src="{{asset('assets/images/logo/logo.png')}}" width="60" height="60" alt="">
           					</a>
                 </div>
 				<!-- /Logo -->
@@ -124,7 +124,7 @@
 					<div class="dropdown-menu dropdown-menu-right">
 						<a class="dropdown-item" href="{{ route('edit-profile') }}">My Profile</a>
 						<a class="dropdown-item" href="{{ route('user.change-password') }}">Password</a>
-						<a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 					</div>
 				</div>
 				<!-- /Mobile Menu -->

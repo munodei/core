@@ -8,7 +8,7 @@
         <meta name="author" content=" {{$basic->sitename}}">
         <meta name="robots" content="noindex, nofollow">
 
-        <title>{{isset($page_title) ? $page_title : ''}} | {{ $basic->sitename }} </title>
+        <title>{{ $basic->sitename }} {{isset($page_title) ? '|' : ''}} {{isset($page_title) ? $page_title : ''}}   </title>
         @yield('import-css')
         @yield('css')
         <!-- Favicon -->
@@ -29,7 +29,7 @@ a:hover, a:visited, a:link, a:active
     text-decoration: none;
     color:#bbc4cc;
 }</style>
-
+<script src='{{ url('/') }}/assets/smarthr/js/a076d05399.js'></script>
     </head>
 
     <body>
@@ -71,8 +71,24 @@ a:hover, a:visited, a:link, a:active
           <li class="nav-item">
               <a class="dropdown-item" href="{{route('blog')}}">Blog</a>
           </li>
+          <li class="nav-item dropdown has-arrow flag-nav">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ url()->current() }}" role="button">
+          <span>Services</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+
+
+
+              @foreach($services as $data)
+                      <a  href="{{route('service',['slug'=>$data->slug]) }}" class="dropdown-item">{{ $data->service }}</a>
+              @endforeach
+            </div>
+          </li>
           <li class="nav-item">
               <a class="dropdown-item" href="{{route('about')}}">About Us</a>
+          </li>
+          <li class="nav-item">
+              <a class="dropdown-item" href="{{route('franchise.all')}}">Supported Franchises</a>
           </li>
           <li class="nav-item">
               <a class="dropdown-item" href="{{route('contact-us')}}">Contact Us</a>
@@ -81,7 +97,7 @@ a:hover, a:visited, a:link, a:active
               <a class="dropdown-item" href="{{route('faqs')}}">Faqs</a>
           </li>
 <li class="nav-item dropdown has-arrow flag-nav">
-  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{route('blog')}}" role="button">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{ {url()->current() }}" role="button">
 <span>Pages</span>
   </a>
   <div class="dropdown-menu dropdown-menu-right">
@@ -100,12 +116,12 @@ a:hover, a:visited, a:link, a:active
           <!-- Notifications -->
           <li class="nav-item dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i> <span class="badge badge-pill">{{ sizeof($notifications) }}</span>
+              <i class="fa fa-bell"></i> <span class="badge badge-pill">{{ sizeof($notifications) }}</span>
             </a>
             <div class="dropdown-menu notifications">
               <div class="topnav-dropdown-header">
                 <span class="notification-title">Notifications</span>
-                <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                <a href="{{ route('clear-notifications') }}" class="clear-noti"> Clear All </a>
               </div>
               <div class="noti-content">
                 <ul class="notification-list">
@@ -135,6 +151,11 @@ a:hover, a:visited, a:link, a:active
             </div>
           </li>
           <!-- /Notifications -->
+          <li class="nav-item dropdown" style="margin-left:10px;">
+            <a href="#" class="dropdown-toggle nav-link">
+              <i class="fa fa-money"></i> <span class="badge badge-pill">{{ number_format(Auth::user()->balance* Auth::user()->country->rate, $basic->decimal) }}</span>
+            </a>
+          </li>
           @endguest
 
 
@@ -179,7 +200,7 @@ a:hover, a:visited, a:link, a:active
             @else
 						<a class="dropdown-item" href="{{ route('edit-profile') }}">My Profile</a>
 						<a class="dropdown-item" href="{{ route('user.change-password') }}">Password</a>
-						<a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
             @endguest
 					</div>
 				</div>
@@ -206,11 +227,12 @@ a:hover, a:visited, a:link, a:active
 							<li class="submenu">
 								<a href="#" class="@if(Route::currentRouteName() == 'contacts.index')  active @endif" class="noti-dot"><i class="la la-users"></i> <span>Contacts</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
+                  <li><a class="@if(Route::currentRouteName() == 'contact-groups.index')  active @endif" href="{{ route('contact-groups.index') }}">All Contact Groups</a></li>
 									<li><a class="@if(Route::currentRouteName() == 'contacts.index')  active @endif" href="{{ route('contacts.index') }}">All Contacts</a></li>
 									<li><a class="@if(Route::currentRouteName() == 'contacts.create')  active @endif" href="{{ route('contacts.create') }}">Add Contact</a></li>
 									<li><a class="@if(Route::currentRouteName() == 'contacts-import')  active @endif" href="{{ route('contacts-import') }}">Import Contacts</a></li>
 									<li><a class="@if(Route::currentRouteName() == 'contacts-export')  active @endif" href="{{ route('contacts-export') }}">Export Contacts</a></li>
-                  <li><a class="@if(Route::currentRouteName() == 'delete-all-contacts')  active @endif" href="{{route('delete-all-contacts')}}">Delete All Contacts</a></li>
+                  <!-- <li><a class="@if(Route::currentRouteName() == 'delete-all-contacts')  active @endif" href="{{route('delete-all-contacts')}}">Delete All Contacts</a></li> -->
 								</ul>
 							</li>
 
@@ -218,10 +240,10 @@ a:hover, a:visited, a:link, a:active
 								<a href="#"><i class="la la-shopping-cart"></i> <span> Saved Shopping Lists</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
                   <li><a class="@if(Route::currentRouteName() == 'add-shopping-item')  active @endif" href="{{ route('add-shopping-item') }}">Add Shopping Item</a></li>
-									<li><a class="@if(Route::currentRouteName() == 'shopping-items')  active @endif" href="{{ route('shopping-items') }}">All Shopping Items</a></li>
-									<li><a class="@if(Route::currentRouteName() == 'shopping-list')  active @endif" href="{{ route('shopping-list') }}">Shopping Lists</a></li>
-                  <li><a class="@if(Route::currentRouteName() == 'shopping-requests.index')  active @endif" href="{{ route('shopping-requests.index') }}">Shopping Requests</a></li>
-                  <li><a class="@if(Route::currentRouteName() == 'delivery-locations.index')  active @endif" href="{{ route('delivery-locations.index') }}">Delivery Locations</a></li>
+									<li><a class="@if(Route::currentRouteName() == 'shopping-items')  active @endif" href="{{ route('shopping-items') }}">Your Shopping Items</a></li>
+									<li><a class="@if(Route::currentRouteName() == 'shopping-list')  active @endif" href="{{ route('shopping-list') }}">Your Shopping Lists</a></li>
+                  <li><a class="@if(Route::currentRouteName() == 'shopping-requests.index')  active @endif" href="{{ route('shopping-requests.index') }}">Your Shopping Requests</a></li>
+                  <li><a class="@if(Route::currentRouteName() == 'delivery-locations.index')  active @endif" href="{{ route('delivery-locations.index') }}">Your Delivery Locations</a></li>
 								</ul>
 							</li>
 
@@ -233,8 +255,10 @@ a:hover, a:visited, a:link, a:active
 							<li class="submenu">
 								<a href="#"><i class="la la-money"></i> <span> Cash Services </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><a class="@if(request()->path() == 'user/send-money') active @endif" href="{{ route('send.money') }}">Send Money</a></li>
-									<li><a class="@if(request()->path() == 'user/transfer-history') active @endif" href="{{ route('sendingLog') }}">Send History</a></li>
+                  <li><a class="@if(Route::currentRouteName() == 'transfer.money')  active @endif"  href="{{ route('transfer.money') }}">Transfer Money</a></li>
+                  <li><a class="@if(Route::currentRouteName() == 'transfer.log')  active @endif"  href="{{ route('transfer.log') }}">Transfer Log</a></li>
+                  <li><a class="@if(request()->path() == 'user/send-money') active @endif" href="{{ route('send.money') }}">Send Money</a></li>
+									<li><a class="@if(request()->path() == 'user/transfer-history') active @endif" href="{{ route('sendingLog') }}">Send Log</a></li>
 									<li><a class="@if(request()->path() == 'user/payout-money') active @endif" href="{{ route('merchant.withdraw') }}">Payout Money</a></li>
 									<li><a class="@if(request()->path() == 'user/payout-log') active @endif" href="{{ route('withdrawLog') }}">Payout Log </a></li>
 									<li><a class="@if(request()->path() == 'user/transaction-log') active @endif" href="{{ route('user.trx') }}">Transaction Log</a></li>
@@ -249,6 +273,24 @@ a:hover, a:visited, a:link, a:active
 								</ul>
 							</li>
 
+              <li class="menu-title">
+                <span>Convenience Shopping</span>
+              </li>
+
+              <li>
+
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'restaurants']) }}">                 <i class="fa fa-hamburger"></i>       <span>Restaurants</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'fruit-and-vegetables-stores']) }}"> <i class="fa fa-carrot"></i>          <span>Fruits & Veg</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"   href="{{ route('outlets',['type'=>'butcheries']) }}">                 <i class="fa fa-fish"></i>            <span>Butcheries</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'supermarkets']) }}">                <i class="fa fa-shopping-building1"></i> <span>Supermarkets</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'wholesalers']) }}">                 <i class="fa fa-building1"></i>         <span>Wholesalers</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'florists']) }}">                    <i class="fa fa-seedling"></i>        <span>Florists</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'hardware-centres']) }}">            <i class="fa fa-door-open"></i>       <span>Hardware Centres</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'phamarcies']) }}">                  <i class="fa fa-clinic-medical"></i>  <span>Phamarcies</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'liquor-and-beverage-stores']) }}">  <i class="fa fa-glass-cheers"></i>    <span>Liquor & beverages</span></a>
+
+              </li>
+
 							<li class="menu-title">
 								<span>Airtime Services</span>
 							</li>
@@ -259,6 +301,8 @@ a:hover, a:visited, a:link, a:active
 							<!-- <li>
 								<a href="{{ route('buy-airtime.index') }}"><i class="la la-question"></i> <span>Buy Airtime</span></a>
 							</li> -->
+
+
 
               <li class="menu-title">
                 <span>Direct Withdrawal</span>

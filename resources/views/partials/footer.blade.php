@@ -60,9 +60,9 @@
                         <h4 class="title">Contact Us</h4>
                     </div>
                     <div class="widget-body">
-                        <span class="details">{{$basic->address}}</span>
-                        <span class="details">{{$basic->email}}</span>
-                        <span class="details">{{$basic->phone}}</span>
+                        <span class="details">{{$basic->address}}</span><br>
+                        <span class="details">{{$basic->email}}</span><br>
+                        <span class="details">{{$basic->phone}}</span><br>
                     </div>
                 </div><!-- //.footer widget -->
             </div>

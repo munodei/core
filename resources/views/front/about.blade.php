@@ -33,10 +33,8 @@
                         <p>{!! $basic->about !!}</p>
 
                         <div class="video-inner-wrapper">
-                            <img src="{{asset('assets/images/about-video-image.jpg')}}" alt="about video image">
-                            <div class="hover">
-                                <a href="{{$basic->about_video}}" class="video-play-btn mfp-iframe"><i class="fas fa-play"></i></a>
-                            </div>
+                            <img src="{{asset('assets/images/about-video-image.jpg')}}"  class="col-lg-12" alt="about video image">
+
                         </div>
                     </div><!-- //.about page content inner -->
                 </div>
@@ -44,6 +42,8 @@
         </div>
     </section>
     <!-- about page content area end -->
+    <br>
+    @include('partials.share')
 </center>
 
 

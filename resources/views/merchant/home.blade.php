@@ -24,7 +24,7 @@
             <div class="col-lg-4">
 
                     <div class="bs-component">
-                        <div class="card mb-3 text-white  bg-info  text-center">
+                        <div class="card mb-3 text-white  bg-primary  text-center">
                             <div class="card-body">
                                 <blockquote class="card-blockquote">
                                     <h3>{{$user->country->name}} Balance</h3>
@@ -56,7 +56,7 @@
             <div class="col-lg-4">
                 <a href="{{route('withdrawLog')}}" class="text-decoration">
                     <div class="bs-component">
-                        <div class="card mb-3 text-white  bg-success  text-center">
+                        <div class="card mb-3 text-white  bg-primary  text-center">
                             <div class="card-body">
                                 <blockquote class="card-blockquote">
                                     <h3>Total Payout</h3>
@@ -89,7 +89,7 @@
             <div class="col-lg-4">
                 <a href="{{route('user.trx')}}" class="text-decoration">
                     <div class="bs-component">
-                        <div class="card mb-3 text-white  bg-info  text-center">
+                        <div class="card mb-3 text-white  bg-primary  text-center">
                             <div class="card-body">
                                 <blockquote class="card-blockquote">
                                     <h3>Total Transactions</h3>
@@ -103,7 +103,7 @@
             <div class="col-lg-4">
                 <a href="{{route('user.depositLog')}}" class="text-decoration">
                     <div class="bs-component">
-                        <div class="card mb-3 text-white  bg-danger  text-center">
+                        <div class="card mb-3 text-white  bg-dark  text-center">
 
                             <div class="card-body">
                                 <blockquote class="card-blockquote">
@@ -115,6 +115,28 @@
                     </div>
                 </a>
             </div>
+
+            <div class="col-lg-12">
+                <a href="{{route('deposit')}}" class="text-decoration">
+                    <div class="bs-component">
+                        <div class="card mb-3 text-white  bg-dark  text-center">
+                            <div class="card-body">
+                                <blockquote class="card-blockquote">
+
+                                      <h4>Username: <span class="padding-left-10 red"> {{Auth::user()->username}}</span></h4>
+                                      <h4>Merchant Account: <span class="padding-left-10 red"> {{Auth::user()->merchant_identity}}</span></h4>
+                                      <h4>Country: <span class="padding-left-10 red"> {{Auth::user()->country->name}}</span></h4>
+                                      <h4>Email: <span class="padding-left-10 red"> {{Auth::user()->email}}</span></h4>
+                                      <h4>Contact No: <span class="padding-left-10 red"> {{Auth::user()->phone}}</span></h4>
+
+
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
         </div>
     </div>
 

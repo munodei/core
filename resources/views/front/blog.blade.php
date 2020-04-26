@@ -25,17 +25,19 @@
                 @foreach($blogs as $data)
                     <div class="col-lg-4 col-md-6">
                         <div class="single-blog-post"><!-- single blog page -->
+                          <a href="{{route('blog.details',['slud'=>$data->slug])}}">
                             <div class="thumb ">
                                 <img src="{{asset('assets/images/post/'.$data->image)}}" alt="blog images" class="col-lg-4 col-md-6">
                             </div>
+                          </a>
                             <div class="content" style="margin:10px;">
-                                <a href="{{route('blog.details',[$data->id,str_slug($data->title)])}}"><h4 class="title">{{$data->title}}</h4></a>
+                                <a href="{{route('blog.details',['slud'=>$data->slug])}}"><h4 class="title">{{$data->title}}</h4></a>
                                 <div class="post-meta">
                                     <span class="time"><i
                                             class="far fa-clock"></i> {{date('d M Y',strtotime($data->created_at))}}</span>
                                 </div>
                                 <p>{{str_limit(strip_tags($data->details),180)}} </p>
-                                <a href="{{route('blog.details',[$data->id,str_slug($data->title)])}}"  class="readmore btn-sm btn-primary">Read More</a>
+                                <a href="{{route('blog.details',['slud'=>$data->slug])}}"  class="readmore btn-sm btn-primary">Read More</a>
                                 <br>
                             </div>
                         </div><!-- //. single blog page content -->

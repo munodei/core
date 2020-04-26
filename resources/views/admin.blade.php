@@ -57,13 +57,39 @@
 
         <li class="treeview @if(request()->path() == 'admin/continent') is-expanded
                 @elseif(request()->path() == 'admin/country') is-expanded
+                @elseif(request()->path() == 'admin/state') is-expanded
+                @elseif(request()->path() == 'admin/city') is-expanded
+                @elseif(request()->path() == 'admin/neighbourhood') is-expanded
+                @elseif(request()->path() == 'admin/suburb') is-expanded
                 @endif ">
-            <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-globe"></i><span class="app-menu__label">Manage Country</span> <i class="treeview-indicator fa fa-angle-right"></i></a>
+            <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-globe"></i><span class="app-menu__label">Manage Locations</span> <i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
                 <li><a class="treeview-item @if(request()->path() == 'admin/continent') active @endif" href="{{route('continent.index')}}"><i class="icon fa fa-arrow-right"></i>   Continent</a></li>
                 <li><a class="treeview-item @if(request()->path() == 'admin/country') active @endif" href="{{route('country.index')}}"><i class="icon fa fa-globe"></i> Countries </a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/state') active @endif" href="{{route('state.index')}}"><i class="icon fa fa-globe"></i> States </a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/city') active @endif" href="{{route('city.index')}}"><i class="icon fa fa-globe"></i> Cities </a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/neighbourhood') active @endif" href="{{route('neighbourhood.index')}}"><i class="icon fa fa-globe"></i> Neighbourhoods </a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/suburb') active @endif" href="{{route('suburb.index')}}"><i class="icon fa fa-globe"></i> Suburbs </a></li>
+
             </ul>
         </li>
+
+        <li class="treeview @if(request()->path() == 'admin/product') is-expanded
+                @elseif(request()->path() == 'admin/outlet') is-expanded
+                @elseif(request()->path() == 'admin/outlet-cat') is-expanded
+                @endif ">
+            <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-globe"></i><span class="app-menu__label">Manage Outlets</span> <i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item @if(request()->path() == 'admin/outlet') active @endif" href="{{route('outlet.index')}}"><i class="icon fa fa-arrow-right"></i>   Outlets</a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/outlet-cat') active @endif" href="{{route('outlet-cat.index')}}"><i class="icon fa fa-globe"></i> Outlet Categories </a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/product') active @endif" href="{{route('product.index')}}"><i class="icon fa fa-globe"></i> Outlet Products </a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/product-category') active @endif" href="{{route('product-category.index')}}"><i class="icon fa fa-globe"></i> Outlet Product Categories </a></li>
+                    <li><a class="treeview-item @if(request()->path() == 'admin/outlet-cat-outlet') active @endif" href="{{route('outlet-cat-outlet.index')}}"><i class="icon fa fa-globe"></i>  Outlet Category RelationShips </a></li>
+                <li><a class="treeview-item @if(request()->path() == 'admin/product-sub-category') active @endif" href="{{route('product-sub-category.index')}}"><i class="icon fa fa-globe"></i>  Outlet Sub Product Categories </a></li>
+            </ul>
+        </li>
+
+
 
         <li class="treeview  @if(request()->path() == 'admin/users')  is-expanded
                 @elseif(request()->path() == 'admin/user-banned')  is-expanded
@@ -136,6 +162,7 @@
                 <li><a class="treeview-item  @if(request()->path() == 'admin/manage-text') active @endif " href="{{route('manage-footer')}}"><i class="icon fa fa-file-text"></i>  Section & footer Text  </a></li>
                 <li><a class="treeview-item  @if(request()->path() == 'admin/testimonial') active @endif " href="{{route('admin.testimonial')}}"><i class="icon fa fa-quote-left"></i> Testimonials  </a></li>
                 <li><a class="treeview-item  @if(request()->path() == 'admin/faqs') active @endif " href="{{route('faqs-all')}}"><i class="icon fa fa-question-circle"></i> Manage Faq  </a></li>
+                <li><a class="treeview-item  @if(request()->path() == 'admin/faqs') active @endif " href="{{route('service-faqs')}}"><i class="icon fa fa-question-circle"></i> Service Faq  </a></li>
                 <li><a class="treeview-item  @if(request()->path() == 'admin/about') active @endif " href="{{route('admin.about')}}"><i class="icon fa fa-info-circle"></i> Manage About</a></li>
                 <li><a class="treeview-item  @if(request()->path() == 'admin/achievement') active @endif " href="{{route('admin.achievement')}}"><i class="icon fa fa-trophy"></i> Manage Achievement</a></li>
                 <li><a class="treeview-item @if(request()->path() == 'admin/menu-control') active @endif " href="{{route('menu-control')}}"><i class="icon fa fa-list"></i> Menu Controls </a></li>

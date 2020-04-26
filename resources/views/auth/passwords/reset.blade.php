@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-inner"><!-- breadcrumb inner -->
-                        <h1 class="title">{{$page_title}}</h1>
+                        <h1 class="title">{{$page_title ?? 'Reset'}}</h1>
                     </div><!-- //.breadcrumb inner -->
                 </div>
             </div>

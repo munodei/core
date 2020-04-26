@@ -57,7 +57,7 @@
                                             <input type="submit" class="submit-btn btn btn-block btn-primary" value="Send Code">
                                     </div>
                                 </form>
-
+                                <br>
 
 
                                 <div class="margin-top-20"></div>
@@ -111,11 +111,11 @@
                                     <input type="hidden" name="id" value="{{Auth::user()->id}}">
                                     <p>Your E-mail :<strong> {{Auth::user()->email}}</strong></p>
                                     <div class=" margin-bottom-20 ">
-                                        <input type="submit" class="submit-btn btn btn-block" value="Send Code">
+                                        <input type="submit" class="submit-btn btn btn-block btn-primary" value="Send Code">
                                     </div>
                                 </form>
 
-
+                                <br>
                                 <div class="margin-top-20"></div>
 
                                 <form  action="{{ route('user.email-verify')}}" method="post">
@@ -159,7 +159,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <div class="login-form-wrapper">
-                                @include('errors.alert')
+
 
 
                                 <form  method="post" action="{{route('user.send-vcode') }}">
@@ -167,10 +167,10 @@
                                     <input type="hidden" name="id" value="{{Auth::user()->id}}">
                                     <p>Your Mobile No:<strong> {{Auth::user()->phone}}</strong></p>
                                     <div class=" margin-bottom-20 ">
-                                        <input type="submit" class="submit-btn btn btn-block" value="Send Code">
+                                        <input type="submit" class="submit-btn btn btn-block btn-primary" value="Send Code">
                                     </div>
                                 </form>
-
+                                <br>
 
                                 <div class="margin-top-20"></div>
 

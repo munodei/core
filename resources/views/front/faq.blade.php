@@ -80,6 +80,9 @@
                         </div>
                     </div><!-- //.right content wrappper -->
                 </div>
+                <br>
+                @include('partials.share')
+
                 <div class="col-lg-12 text-center">
                     <div class="btn-wrapper">
                         <a href="{{ route('contact-us') }}" class="boxed-btn btn-rounded">Any question?</a>
