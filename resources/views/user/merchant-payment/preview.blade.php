@@ -51,7 +51,7 @@
                                     </li>
                                     <li class="list-group-item">
                                       Bank  :  FNB <br>
-                                      Account Number  :  <strong>{{$data->val1}}</strong> &nbsp; Branch Code  : <strong>{{$data->val2}}</strong><br>
+                                      Account Number  :  <strong>{{$basic->val1}}</strong> &nbsp; Branch Code  : <strong>{{$basic->val2}}</strong><br>
                                     </li>
 
                                     <li class="list-group-item">

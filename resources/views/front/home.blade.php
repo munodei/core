@@ -8,9 +8,9 @@
 <meta property="og:image:height" content="500" />
 <meta property="og:image:alt" content="{{ $basic->sitename }} | Convenience remittance which empowers you to enhance." />
 <meta property="og:description" content="{{ $basic->sitename }}| Convenience remittance which empowers you to enhance." />
-    <link rel="stylesheet" href="{{asset('assets/front/css/calculation.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/front')}}/flags/flags.css">
-    <link rel="stylesheet" href="{{asset('assets/front')}}/flags/dd.css">
+<link rel="stylesheet" href="{{asset('assets/front/css/calculation.css')}}">
+<link rel="stylesheet" href="{{asset('assets/front')}}/flags/flags.css">
+<link rel="stylesheet" href="{{asset('assets/front')}}/flags/dd.css">
 @stop
 @section('content')
     <!-- header area start -->

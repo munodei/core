@@ -11,6 +11,7 @@
 |
 */
 
+//Route::get('/testsms', 'FrontendController@sendSms')->name('send.sms');
 //Payment IPN
 
 Route::get('/ipnbtc', 'PaymentController@ipnBchain')->name('ipn.bchain');
@@ -37,6 +38,11 @@ Route::post('/ipnpaystack', 'PaymentController@ipnPayStack')->name('ipn.paystack
 Route::post('/ipnvoguepay', 'PaymentController@ipnVoguePay')->name('ipn.voguepay');
 //Payment IPN
 
+Route::any('/product/{slug}','ProductController@previewProduct')->name('product.preview');
+Route::get('/driver-application','DriverApplicationController@index')->name('driver.application');
+Route::post('/driver-application','DriverApplicationController@store')->name('driver.application');
+Route::get('/mall-runner-application','DriverApplicationController@mallrunner')->name('mall-runner.application');
+Route::post('/mall-runner-application','DriverApplicationController@create')->name('mall-runner.application');
 
 Route::get('/', 'FrontendController@index')->name('main');
 Route::get('/blogs', 'FrontendController@blog')->name('blog');
@@ -54,6 +60,12 @@ Route::post('/franchise/{franchise}', 'FrontendController@franchisesInformation'
 
 Route::get('/franchise/{country}/{franchise}', 'FrontendController@franchisesProducts')->name('franchise.products');
 Route::post('/franchise/{country}/{franchise}', 'FrontendController@franchisesProducts')->name('franchise.products');
+
+Route::get('/essential-service-providers', 'FrontendController@essentialServiceProviders')->name('essential_service_providers.all');
+Route::post('/essential-service-providers', 'FrontendController@essentialServiceProviders')->name('essential_service_providers.all');
+
+Route::get('/service-provider/{slug}', 'FrontendController@serviceProvider')->name('service_provider.info');
+
 
 Route::get('/{country}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
 Route::get('/{country}/{state}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
@@ -79,7 +91,10 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['middleware' => ['auth','CheckStatus']], function() {
 
         Route::get('/home', 'HomeController@index')->name('home');
-
+        Route::resource('cart', 'CartController');
+        Route::post('/add-to-cart', 'CartController@create')->name('cart.create');
+        Route::any('/clear-cart', 'CartController@clear')->name('cart.clear');
+        Route::any('/delete-item/{id}', 'CartController@itemClear')->name('item.clear');
         //user Deposit
         Route::get('/deposit', 'HomeController@deposit')->name('deposit');
         Route::post('/deposit', 'HomeController@deposit')->name('deposit');
@@ -130,12 +145,14 @@ Route::group(['middleware' => ['auth','CheckStatus']], function() {
         Route::get('/franchise/{outlet}/{department}','Common\OutletsController@outletDepartments')->name('outlet.departments');
         Route::get('/franchise/{outlet}/{type}/{department}','Common\OutletsController@outletProducts')->name('outlet.products');
 
-        //delivery locations
+        //Contact Groups
         Route::resource('contact-groups', 'ContactGroupController');
         Route::any('add-contact-to-group','ContactGroupController@addContactToGroup')->name('add-contact-to-group');
         Route::any('update-contact-group','ContactGroupController@update')->name('update-contact-group');
         Route::any('share-contact-group','ContactGroupController@shareContactGroup')->name('share-contact-group');
         Route::any('delete-contact-group','ContactGroupController@destroy')->name('delete-contact-group');
+        Route::any('delete-contact-from-group/{group_id}/{contact_id}','ContactGroupController@deleteFromContactList')->name('delete-contact-from-group');
+
 
 
 
@@ -205,7 +222,7 @@ Route::group(['middleware' => ['auth','CheckStatus']], function() {
         Route::any('/edit-shopping-item/{id}','Common\ShoppingItemController@editShoppingItem')->name('edit-shopping-item');
         Route::any('/update-shopping-item/{id}','Common\ShoppingItemController@updateShoppingItem')->name('update-shopping-item');
         Route::any('/delete-shopping-item','Common\ShoppingItemController@deleteShoppingItem')->name('delete-shopping-item');
-        Route::any('/delete-from-group-shopping-item/{group_id}/{contact_id}','Common\ShoppingItemController@deleteFromGroupContact')->name('delete-from-group-shopping-item');
+        Route::any('/delete-from-group-shopping-item/{group_id}/{item_id}','Common\ShoppingItemController@deleteFromShoppingList')->name('delete-from-group-shopping-item');
 
 
         //Shopping List Controller

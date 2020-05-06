@@ -272,6 +272,7 @@ class ShoppingListController extends Controller
                                     'status'             =>$status ?? 'Pending',
                                     'reason'             =>$reason ?? 'Invoicing',
                                     'zip_code'           =>$zip_code ?? '',
+                                    'cart_id'            =>$cart_id ?? null
                                   ]);
                                   add_notification($request->user()->id, $this->icons, 'Shopping Request Made! : @'.date('Y-m-d h:i:s'), route('shopping-list'), 0);
               if(!DeliveryLocation::where([['address',$address],['suburb',$suburb],['neighbourhood',$neighbourhood],['city',$city],['state',$state],['country',$country],['zip_code',$zip_code ]])->exists()){
@@ -307,20 +308,12 @@ class ShoppingListController extends Controller
         }
 
 
-          // Mail::send('emails.default.share.email-request', ['user' => $_POST ,'email'=>$emailaddress], function ($m) use ($emailaddress) {
-          //
-          //     $m->from('requests@mypdz.com', 'Mypdz');
-          //     $m->to($emailaddress, 'Mypdz Client' )->subject('You have made a request for Mypdz to do your shopping for you!');
-          //
-          // });
+        $text = "Your Shopping Request Has been Sent";
+        $user = $request>user()->id;
+        send_email_verification($user->email, $user->username, 'Shopping Request Sent', $text);
 
-
-          // Mail::send('emails.default.share.email-request-notification', ['user' => $_POST ,'email'=>$emailaddress], function ($m) use ($emailaddress) {
-          //
-          //     $m->from('system@mypdz.com', 'Mypdz System');
-          //     $m->to('requests@mypdz.com', 'Mypdz' )->subject('A request has been made by a client to have their shopping done!');
-          //
-          // });
+        if(isset($cart_id))
+        \App\ShoppingCart::where('id',$cart_id)->update(['status'=>0]);
 
           return redirect()->back()->with('success','Your request has been sent!');
       }

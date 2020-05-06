@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <meta name="description" content="{{ $page_title ?? ''}} | {{ $basic->sitename }}">
-		    <meta name="keywords" content=" {{$basic->sitename}}">
-        <meta name="author" content=" {{$basic->sitename}}">
+        <meta name="description" content="{{ $page_title ?? ''}} | {{ $basic->site_title }}">
+		    <meta name="keywords" content=" {{$basic->site_title}}">
+        <meta name="author" content=" {{$basic->site_title}}">
         <meta name="robots" content="noindex, nofollow">
 
-        <title>{{ $basic->sitename }} {{isset($page_title) ? '|' : ''}} {{isset($page_title) ? $page_title : ''}}   </title>
+        <title>{{ $basic->site_title }} {{isset($page_title) ? '|' : ''}} {{isset($page_title) ? $page_title : ''}}   </title>
         @yield('import-css')
         @yield('css')
         <!-- Favicon -->
@@ -69,6 +69,9 @@ a:hover, a:visited, a:link, a:active
 				<ul class="nav user-menu">
           <!-- Flag -->
           <li class="nav-item">
+              <a class="dropdown-item" href="{{route('about')}}">About Us</a>
+          </li>
+          <li class="nav-item">
               <a class="dropdown-item" href="{{route('blog')}}">Blog</a>
           </li>
           <li class="nav-item dropdown has-arrow flag-nav">
@@ -84,24 +87,21 @@ a:hover, a:visited, a:link, a:active
               @endforeach
             </div>
           </li>
-          <li class="nav-item">
-              <a class="dropdown-item" href="{{route('about')}}">About Us</a>
-          </li>
+              <li class="nav-item">
+                      <a class="dropdown-item" href="{{route('essential_service_providers.all')}}">Service Providers</a>
+              </li>
+
           <li class="nav-item">
               <a class="dropdown-item" href="{{route('franchise.all')}}">Supported Franchises</a>
           </li>
-          <li class="nav-item">
-              <a class="dropdown-item" href="{{route('contact-us')}}">Contact Us</a>
-          </li>
-          <li class="nav-item">
-              <a class="dropdown-item" href="{{route('faqs')}}">Faqs</a>
-          </li>
+
 <li class="nav-item dropdown has-arrow flag-nav">
   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{ {url()->current() }}" role="button">
 <span>Pages</span>
   </a>
   <div class="dropdown-menu dropdown-menu-right">
-
+    <a class="dropdown-item" href="{{route('contact-us')}}">Contact Us</a>
+      <a class="dropdown-item" href="{{route('faqs')}}">Faqs</a>
 
 
     @foreach($menus as $data)
@@ -113,6 +113,44 @@ a:hover, a:visited, a:link, a:active
 
           @guest
           @else
+          <!-- Notifications -->
+          <li class="nav-item dropdown">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="fa fa-shopping-cart"></i> <span class="badge badge-pill">{{ sizeof($items) }}</span>
+            </a>
+            <div class="dropdown-menu notifications">
+              <div class="topnav-dropdown-header">
+                <span class="notification-title">Cart</span>
+                <a href="{{ route('cart.clear') }}" class="clear-noti"> Clear All </a>
+              </div>
+              <div class="noti-content">
+                <ul class="notification-list">
+
+
+
+                  @foreach($items as $item)
+                  <li class="notification-message">
+
+                      <div class="media">
+
+                        <img src="{{ $item->photo }}" width="25px" height="25px"/>
+
+                        <div class="media-body">
+                          <p class="noti-details"><span class="noti-title">{!! str_limit($item->item_name,35) !!}<span></i>&nbsp;<i style="color:blue;">Price : {!! $item->item_price !!}</i>&nbsp;</p>
+
+                        </div>
+                      </div>
+
+                  </li>
+                  @endforeach
+                </ul>
+              </div>
+              <div class="topnav-dropdown-footer">
+                <a href="{{ route('cart.index') }}">View all Cart Items</a>
+              </div>
+            </div>
+          </li>
+          <!-- /Notifications -->
           <!-- Notifications -->
           <li class="nav-item dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -194,14 +232,25 @@ a:hover, a:visited, a:link, a:active
         <div class="dropdown mobile-user-menu">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 					<div class="dropdown-menu dropdown-menu-right">
+
+            <a class="dropdown-item" href="{{route('blog')}}">Blog</a>
+            <a class="dropdown-item" href="{{route('franchise.all')}}">Supported Franchises</a>
+            <a class="dropdown-item" href="{{route('essential_service_providers.all')}}">Service Providers</a>
+            <a class="dropdown-item" href="{{route('contact-us')}}">Contact Us</a>
+            <a class="dropdown-item" href="{{route('faqs')}}">Faqs</a>
             @guest
             <a class="dropdown-item" href="{{ route('login') }}">Login</a>
             <a class="dropdown-item" href="{{ route('register') }}">Register</a>
             @else
+            <a class="dropdown-item" href="{{ route('notifications.index') }}">Notifications</a>
+            <a class="dropdown-item" href="#">{{ number_format(Auth::user()->balance* Auth::user()->country->rate, $basic->decimal) }}</a>
 						<a class="dropdown-item" href="{{ route('edit-profile') }}">My Profile</a>
 						<a class="dropdown-item" href="{{ route('user.change-password') }}">Password</a>
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
             @endguest
+            @foreach($menus as $data)
+                    <a  href="{{route('menu',[$data->id, str_slug($data->name)])}}" class="dropdown-item">{{$data->name}}</a>
+            @endforeach
 					</div>
 				</div>
 				<!-- /Mobile Menu -->
@@ -282,8 +331,8 @@ a:hover, a:visited, a:link, a:active
                 <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'restaurants']) }}">                 <i class="fa fa-hamburger"></i>       <span>Restaurants</span></a>
                 <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'fruit-and-vegetables-stores']) }}"> <i class="fa fa-carrot"></i>          <span>Fruits & Veg</span></a>
                 <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"   href="{{ route('outlets',['type'=>'butcheries']) }}">                 <i class="fa fa-fish"></i>            <span>Butcheries</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'supermarkets']) }}">                <i class="fa fa-shopping-building1"></i> <span>Supermarkets</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'wholesalers']) }}">                 <i class="fa fa-building1"></i>         <span>Wholesalers</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'supermarkets']) }}">                <i class="fa fa-shopping-basket"></i> <span>Supermarkets</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'wholesalers']) }}">                 <i class="fa fa-building"></i>         <span>Wholesalers</span></a>
                 <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'florists']) }}">                    <i class="fa fa-seedling"></i>        <span>Florists</span></a>
                 <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'hardware-centres']) }}">            <i class="fa fa-door-open"></i>       <span>Hardware Centres</span></a>
                 <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'phamarcies']) }}">                  <i class="fa fa-clinic-medical"></i>  <span>Phamarcies</span></a>

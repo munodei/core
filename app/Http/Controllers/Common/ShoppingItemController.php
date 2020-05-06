@@ -313,7 +313,7 @@ class ShoppingItemController extends Controller
 
                   $request->file('upload')->move(base_path() . '/assets/uploads/shopping-items/', $fileNameToStore);
 
-                  $fileNameToStore = '/assets/uploads/shopping-items/'.$fileNameToStore;
+                  $fileNameToStore = url('/').'/assets/uploads/shopping-items/'.$fileNameToStore;
 
             }
 
@@ -329,7 +329,7 @@ class ShoppingItemController extends Controller
                                                     'shopping_item_price'=> $shopping_item_price ?? '',
                                                     'shopping_item_brand'=> $shopping_item_brand,
                                                     'slug'=>unique_slug($shopping_item_name,'ShoppingItem') ?? '',
-                                                    'photo'=>$fileNameToStore ?? '/assets/uploads/shopping-items/images.png',
+                                                    'photo'=>$fileNameToStore ?? url('/').'/assets/uploads/shopping-items/images.png',
                                                     'created_at'=>date('Y-m-d h:i:s'),
                                                     'updated_at'=>date('Y-m-d h:i:s')
                                                     ]);
@@ -518,6 +518,18 @@ public function deleteShoppingItem(Request $request){
 
 
 }
+
+// public function deleteFromShoppingList(Request $request,$group_id,$item_id)
+// {
+//   if(ShoppingList::where([['user_id',$request->user()->id],['id',$group_id]])->exists()){
+//
+//     \App\ShoppingListItem::where([['shopping_list_id',$group_id],['shopping_item_id',$item_id]])->delete();
+//     return redirect()->back()->with('success','Shopping Item removed!');
+//
+//   }
+//
+//   return redirect()->back()->with('error','Error occured on attempt to delete shopping item!');
+// }
 
 
 }

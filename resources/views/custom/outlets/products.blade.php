@@ -48,11 +48,11 @@
                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a class="dropdown-item" href="#" title="Add To Your Shopping Items" onclick="addShoppingProductToShoppingItems({{ $data->id }},'{{ $data->product_name }}')" data-toggle="modal" data-target="#AddShoppingItem"><i class="fa fa-plus m-r-5"></i> Add To My Shopping Items</a>
-
+                  <a class="dropdown-item" href="#" title="Add {{ $data->product_name }} To Cart" onclick="addToCartShoppingItem({{ $data->id }},'{{ $data->product_name }}','0')" data-toggle="modal" data-target="#AddToCartShoppingItem"><i class="fa fa-shopping-basket m-r-5" ></i> Add To cart</a>
                 </div>
               </div>
               <div class="profile-img">
-                <a href="{{route('outlet.departments',['outlet'=>$outlet->slug,'department'=>$departmentr])}}" class="avatar"><center><img src="{{ $data->photo }}" alt="{{ $data->outlet }}" width="100%" height="100%"/></center></a>
+                <a href="{{ route('product.preview',['slug'=>$data->slug]) }}" class="avatar"><center><img src="{{ $data->photo }}" alt="{{ $data->outlet }}" width="100%" height="100%"/></center></a>
               </div>
               <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="{{route('outlet.departments',['outlet'=>$outlet->slug,'department'=>$departmentr])}}">{{ $outlet->outlet }}</a></h4>
               <div class="small text-muted"><strong>Name :</strong> {{ $data->product_name }}</div>
@@ -60,6 +60,11 @@
               <div class="small text-muted"><strong>Price :</strong> {{ $data->product_price }}</div>
               <div class="small text-muted"><strong>Quantity :</strong> {{ $data->product_quantity }}</div>
               <div class="small text-muted"><strong>Supplier :</strong> {{ $data->product_outlets }}</div>
+              <div class="small text-muted"><a href="#" title="Add {{ $data->product_name }} To Cart" onclick="addToCartShoppingItem({{ $data->id }},'{{ $data->product_name }}','0')" data-toggle="modal" data-target="#AddToCartShoppingItem" class="btn btn-primary btn-sm"><i class="fa fa-shopping-basket" aria-hidden="true"></i>
+               </a>
+               <a title="Add To Your Shopping Items" onclick="addShoppingProductToShoppingItems({{ $data->id }},'{{ $data->product_name }}')" data-toggle="modal" data-target="#AddShoppingItem" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
+             </div>
 
               <br>
               <br>
@@ -144,6 +149,49 @@
       </div>
 
       <!-- Add Product To your Shopping Items -->
+      <!-- Add to cart Shopping Item -->
+
+      <div id="AddToCartShoppingItem" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Shopping Item To Cart</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{{ route('cart.create') }}">
+                {!! csrf_field() !!}
+                <input type="hidden" name="id" id='add_to_cart_shopping_item_id' value=""/>
+                <input type="hidden" name="shopping_item" id="shopping_item_or_not" value="1"/>
+                Are you sure you want to add '<i id="add_to_cart_shopping_item"></i>' to your cart?
+              <div>
+              </div>
+              <br>
+                <label>Quantity</label>
+              <div class="input-group m-b-30">
+
+                <select class="form-control search-input" data-live-search="true" required name="item_quantity">
+
+                 @for($i=1;$i<=100;$i++)
+
+                        <option value="{{ $i }}">{{ $i }}</option>
+
+                  @endfor
+                </select>
+
+
+              </div>
+      <br>
+        <button class="btn btn-success">Add To Cart</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  Add to cart  Shopping Item -->
       <script>
         function getContactID(id){
 
@@ -155,6 +203,11 @@
           {
             $('#product_shopping_item').html(product);
             $('#product_shopping_item_id').val(id);
+          }
+          function addToCartShoppingItem(id,product,item){
+            $('#add_to_cart_shopping_item').html(product);
+            $('#add_to_cart_shopping_item_id').val(id);
+            $('#shopping_item_or_not').val(item);
           }
       </script>
 

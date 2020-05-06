@@ -9,6 +9,7 @@ use App\Outlet;
 use App\ProCat;
 use App\Product;
 use App\ProSubCat;
+use App\Franchise;
 use App\OutletProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -111,6 +112,16 @@ class ProductController extends Controller
         return view('admin.product.edit', $data);
     }
 
+    public function previewProduct(Request $request,$slug)
+    {
+
+      $data['product'] = Product::where('slug',$slug)->first();
+      $data['pro_cat'] = ProSubCat::where('id',  $data['product']->pro_cat_id)->first();
+      $data['franchise'] = Franchise::where('id',  $data['product']->franchise_id)->first();
+      $data['page_title'] = $data['product']->product_name;
+      return view('custom.products.details', $data);
+
+    }
 
     public function update(Request $request, $id)
     {

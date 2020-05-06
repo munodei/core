@@ -1,79 +1,87 @@
 @extends('merchant-1')
 @section('content')
-    <!-- breadcrumb area start -->
-    <section class="breadcrumb-area breadcrumb-bg white-bg extra">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-inner"><!-- breadcrumb inner -->
-                        <h1 class="title">{{$page_title}}</h1>
-                    </div><!-- //.breadcrumb inner -->
-                </div>
-            </div>
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-history"></i> {{$page_title}}</h1>
         </div>
-    </section>
-    <!-- breadcrumb area end -->
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a href="{{url()->current()}}">{{$page_title}}</a></li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            @include('errors.alert')
+        </div>
+
+        <div class="col-lg-12">
 
 
 
-
-    <div class="testimonial-page-conent">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-12 col-md-12">
-                    @include('errors.alert')
-                </div>
-
-                <div class="col-lg-8 offset-md-2">
-
-
-                    <form method="POST" action="{{route('deposit.confirm')}}">
-                        {{csrf_field()}}
-                        <div class="card text-center">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <img src="{{asset('assets/images/gateway')}}/{{$data->gateway_id}}.jpg"
-                                         style="max-width:100px; max-height:100px; margin:0 auto;"/>
-                                </li>
-                                <li class="list-group-item"> Amount : {{$data->amount}}
-                                    <strong>{{$basic->currency}}</strong>
-                                </li>
+            <form method="POST" action="{{route('deposit.confirm')}}">
+                @csrf
+                <div class="tile text-center">
+                    <h3 class="tile-title">{{$page_title}} </h3>
+                    <div class="tile-body">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3" >
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <img src="{{asset('assets/images/gateway')}}/{{$data->gateway_id}}.jpg"
+                                             style="max-width:100px; max-height:100px; margin:0 auto;"/>
+                                    </li>
+                                    <li class="list-group-item"> Amount : {{$data->amount}}
+                                        <strong>{{$basic->currency}}</strong>
+                                    </li>
 
 
-                                <li class="list-group-item"> Charge :
-                                    <strong>{{$data->charge}} </strong>{{ $basic->currency }}</li>
-                                <li class="list-group-item "> Payable :
-                                    <strong>{{$data->charge + $data->amount}} </strong>{{ $basic->currency }}</li>
+                                    <li class="list-group-item"> Charge :
+                                        <strong>{{$data->charge}} </strong>{{ $basic->currency }}</li>
+                                    <li class="list-group-item "> Payable :
+                                        <strong>{{$data->charge + $data->amount}} </strong>{{ $basic->currency }}</li>
 
-                                @if($data->gateway_id !=515 || $data->gateway_id !=514)
-                                <li class="list-group-item"> In USD :
-                                    <strong>${{$data->usd}}</strong>
-                                </li>
-                                @endif
+                                    @if($data->gateway_id != '515' && $data->gateway_id !='514')
+                                    <li class="list-group-item"> In USD :
+                                        <strong>${{$data->usd}}</strong>
+                                    </li>
+                                    @elseif($data->gateway_id == '515' || $data->gateway_id == '514')
+                                    <li class="list-group-item"> To Add  :
+                                        <strong>{{$data->amount}}</strong>{{ $basic->currency }} to your account @if($data->gateway_id == '514') Deposit @else Transfer @endif <strong>{{$data->charge + $data->amount}} </strong>{{ $basic->currency }}
+                                    </li>
+                                    <li class="list-group-item">
+                                      Bank  :  FNB <br>
+                                      Account Number  :  <strong>{{$basic->val1}}</strong> &nbsp; Branch Code  : <strong>{{$basic->val2}}</strong><br>
+                                    </li>
 
-                                <li class="list-group-item">
-                                    <div class="btn-wrapper">
-                                        <input type="submit" class="submit-btn btn-block" id="btn-confirm" value="Pay Now">
-                                    </div>
-                                </li>
-                            </ul>
+                                    <li class="list-group-item">
+                                      Use Your Merchant Code as Your Reference :  <strong>{{ auth()->user()->merchant_identity }}</strong><br>
+                                    </li>
+                                    @endif
+                                      @if($data->gateway_id != '515' && $data->gateway_id !='514')
+                                    <li class="list-group-item">
+                                        <div class="btn-wrapper">
+                                            <input type="submit" class="btn btn-primary btn-lg btn-block" id="btn-confirm" value="Pay Now">
+                                        </div>
+                                    </li>
+                                    @endif
+                                </ul>
+                                <br><br>
+                            </div>
                         </div>
 
-                    </form>
 
-
+                    </div>
                 </div>
 
-            </div>
+            </form>
+
+
         </div>
     </div>
 
-
-
-
 @stop
-@section('js')
+@section('script')
     @if($data->gateway_id == 107)
         <form action="{{ route('ipn.paystack') }}" method="POST">
             @csrf

@@ -64,6 +64,7 @@
                                             </span>
                                 @endif
                             </div>
+
                             <div class="form-element form-group has-icon margin-bottom-20">
                               <label>Enter Password</label>
                                 <input type="password" class="form-control" name="password" placeholder="Enter Password">
@@ -71,6 +72,17 @@
                                     <i class="fa fa-lock"></i>
                                 </div>
                             </div>
+                            <div class="form-group">
+    <label for="password" class="col-md-4 col-form-label text-md-right"></label>
+    <div class="col-md-6">
+       {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
+       @if ($errors->has('g-recaptcha-response'))
+           <span class="invalid-feedback" role="alert">
+               <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+           </span>
+       @endif
+    </div>
+</div>
                             <div class="checkbox-area form-group margin-bottom-20">
                                 <div class="checkbox-element">
                                     <div class="checkbox-wrapper">

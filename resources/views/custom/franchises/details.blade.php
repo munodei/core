@@ -6,8 +6,8 @@
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="500" />
 <meta property="og:image:height" content="500" />
-<meta property="og:image:alt" content="{{ $basic->sitename }} | Supported Frnachise {{$post->franchise}}" />
-<meta property="og:description" content="{{ $basic->sitename }},  Supported Frnachise, {{$post->franchise}} " />
+<meta property="og:image:alt" content="{{ $basic->sitename }} | Supported Franchise {{$post->franchise}}" />
+<meta property="og:description" content="{{ $basic->sitename }},  Supported Franchise, {{$post->franchise}} " />
 @endsection
 @section('content')
     {!! $basic->fb_comment !!}

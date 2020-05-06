@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
           Schema::defaultStringLength(191);
-           \URL::forceScheme('https');
+        //   \URL::forceScheme('https');
           try {
             DB::connection()->getPdo();
 
@@ -75,7 +75,32 @@ class AppServiceProvider extends ServiceProvider
 
            }
           $services = \App\Service::all();
+          $random     = strtoupper(substr(md5(mt_rand()), 0, 7));
+          if(! \App\ShoppingCart::where([['user_id',$id],['status',1]])->exists())
+          {
+             \App\ShoppingCart::create([
+                                    'cart'=>$random,
+                                    'user_id'=>$id,
+                                    'status'=>1,
+                                    'created_at'=>date('Y-m-d h:i:s'),
+                                    'updated_at'=>date('Y-m-d h:i:s')
+
+              ]);
+
+
+          }
+
+          $items    = \App\Item::leftjoin('shopping_carts','shopping_carts.id','items.cart_id')
+                                          ->where([['shopping_carts.user_id',$id],['shopping_carts.status',1]])
+                                          ->select('shopping_carts.id as ShoppingCartID','items.id as itemID','items.*')
+                                          ->get();
+          $delivery_locations = \App\DeliveryLocation::where('user_id',$id)->get();
+          $cart = \App\ShoppingCart::where([['user_id',$id],['status',1]])->first();
+
+          View::share('delivery_locations',$delivery_locations);
+          View::share('cart',$cart);
           View::share('services',$services);
+          View::share('items',$items);
           View::share('contacts',$contacts);
           View::share('contact_groups',$contact_groups);
           View::share('contact_groups1',$contact_groups1);

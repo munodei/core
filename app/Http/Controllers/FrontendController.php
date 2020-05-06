@@ -26,6 +26,18 @@ class FrontendController extends Controller
         return view('front.home',$data);
     }
 
+    public function sendSms()
+    {
+
+
+        $temp = \App\Etemplate::first();
+        $appi =  $temp->smsapi;
+        $text = urlencode('+27730884358');
+        $appi = str_replace("{{number}}", '+27730884358', $appi);
+        $appi = str_replace("{{message}}", $text, $appi);
+        $result = file_get_contents($appi);
+    }
+
     public function blog()
     {
         $data['page_title'] = "Blogs";
@@ -55,6 +67,41 @@ class FrontendController extends Controller
 
       $page_title = 'Supported Franchises';
       return view('custom.franchises.index',compact('franchise','page_title'));
+    }
+
+    public function essentialServiceProviders(Request $request)
+    {
+      $franchise = \App\ServiceProviderPost::leftjoin('service_provider_postmeta','service_provider_postmeta.service_provider_post_id','=','service_provider_posts.id')
+                                                                                                                                                                    ->leftjoin('service_provider_users','service_provider_users.id','service_provider_posts.service_provider_user_id')
+                                                                                                                                                                    ->leftjoin('service_provider_usermeta','service_provider_users.id','service_provider_usermeta.service_provider_user_id')
+                                                                                                                                                                    ->where([
+                                                                                                                                                                      ['service_provider_posts.post_status','publish'],
+                                                                                                                                                                      ['service_provider_posts.status',1],
+                                                                                                                                                                        ['service_provider_postmeta.meta_key','essb_cached_image'],
+                                                                                                                                                                          ['service_provider_usermeta.meta_key','avatar'],
+                                                                                                                                                                    ])
+                                                                                                                                                                    ->select('service_provider_usermeta.meta_key as avatar','service_provider_postmeta.*','service_provider_posts.*')
+                                                                                                                                                                    ->paginate(20);
+
+// var_dump($franchise);
+// die();
+      if($request->has('franchise')){
+        $franchise = \App\ServiceProviderPost::where([['status',1],['title','LIKE','%'.$request->input('franchise').'%']])->paginate(20);
+      }
+
+      $page_title = 'Service Providers';
+      return view('custom.service-providers.index',compact('franchise','page_title'));
+    }
+
+    public function serviceProvider($franchise)
+    {
+      $info =  \App\ServiceProviderPost::where('post_name',$franchise)->first();
+      $data['page_title'] =  $info->post_title;
+      $data['location'] =  \App\ServiceProviderPostmeta::where([['service_provider_post_id',$info->id],['meta_key','location_input']])->first();
+      $data['photo'] = \App\ServiceProviderPostmeta::where([['service_provider_post_id',$info->id],['meta_key','essb_cached_image']])->first();
+      $data['post'] =  $info;
+      return view('custom.service-providers.details',$data);
+
     }
 
     public function franchisesInformation($franchise)

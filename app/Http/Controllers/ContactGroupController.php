@@ -212,5 +212,25 @@ class ContactGroupController extends Controller
 
     }
 
+    public function deleteFromContactList(Request $request,$group_id,$contact_id){
+
+      if(UserEntry::where([['user_id',$request->user()->id],['entry','contact-group'],['entry_id',$group_id]])->exists()){
+
+          if(ContactGroupItem::where([['contact_group_id',$group_id],['contact_id',$contact_id]])->exists()){
+
+                ContactGroupItem::where([['contact_group_id',$group_id],['contact_id',$contact_id]])->delete();
+
+
+          }
+          add_notification($request->user()->id, $this->icons, 'You have deleted an item from this Contact list : @'.date('Y-m-d h:i:s'), route('contact-groups.index'), 0);
+          return redirect()->back()->with('success','You have deleted an item from this Contact list!');
+
+        }
+        add_notification($request->user()->id, $this->icons, 'Error Occured in Attempt to delete Contact ! : @'.date('Y-m-d h:i:s'), route('contact-groups.index'), 0);
+        return redirect()->back()->with('error','Error Occured in Attempt to delete Contact!');
+
+
+     }
+
 
 }

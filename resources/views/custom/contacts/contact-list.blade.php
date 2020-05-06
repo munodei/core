@@ -38,11 +38,11 @@
                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                   <a class="dropdown-item" href="{{ route('contacts.index') }}"><i class="fa fa-plus m-r-5"></i> Add Contacts</a>
-                  <a class="dropdown-item" href="#" data-target="#EditContactGroup" data-toggle="modal" onclick="EditContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}','{{ $group->group_contacts_description }}');"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                  <a class="dropdown-item" href="#" data-target="#EditContactGroup" data-toggle="modal" onclick="EditContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}','{{ $group->group_contacts_description }}');"><i class="fa fa-edit m-r-5"></i> Edit</a>
                   <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#ShareContactGroup" onclick="ShareContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}')"><i class="fa fa-share-alt m-r-5" ></i> Share</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#DeleteContactGroup" onclick="DeleteContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}')"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#TransferMoneyToContactGroup" onclick="TransferMoneyToContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}')"><i class="fa fa-exchange m-r-5"></i> Transfer Money</a>
-                  <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#SendMoneyToContactGroup" onclick="SendMoneyToContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}')"><i class="fa fa-money m-r-5"></i> Send Money</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#DeleteContactGroup" onclick="DeleteContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}')"><i class="fa fa-trash m-r-5"></i> Delete</a>
+                  <!-- <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#TransferMoneyToContactGroup" onclick="TransferMoneyToContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}')"><i class="fa fa-forward m-r-5"></i> Transfer Money</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal"  data-target="#SendMoneyToContactGroup" onclick="SendMoneyToContactGroup({{ $group->contactGroupID }},'{{ $group->group_contacts_name }}')"><i class="fa fa-money m-r-5"></i> Send Money</a> -->
                 </div>
               </div>
               <div class="chat-box">
@@ -63,6 +63,7 @@
                                       </span>
                                       <div class="small text-muted">{{$contact->firstname}}<br> {{$contact->lastname}}</div>
                                       <div class="small text-muted">{{$contact->email}} <br> {{$contact->mobilephone}}</div>
+                                      <div class="small text-muted"><a href="{{ route('delete-contact-from-group',['group_id'=> $group->contactGroupID,'contact_id'=>$group->contactID]) }}"><i  style="color:red;" class="fa fa-trash"></i></a></div>
 
                                     </div>
 

@@ -64,6 +64,8 @@
                                       <div class="small text-muted"><strong>Price :</strong> {{ $shopping_item->shopping_item_price }}</div>
                                       <div class="small text-muted"><strong>Quantity :</strong> {{ $shopping_item->shopping_item_quantity }}</div>
                                       <div class="small text-muted"><strong>Supplier :</strong> {{ $shopping_item->shopping_item_outlets }}</div>
+                                      <div class="small text-muted"><a href="{{ route('delete-from-group-shopping-item',['group_id'=>$group->shopping_listID,'item_id'=>$group->shopping_itemID])}}"><i style="color:red;" class="fa fa-trash" aria-hidden="true"></i>
+                                       </a></div>
                                     </div>
 
                                   </li>
@@ -222,7 +224,7 @@
 
                         <div class="col-sm-12 form-group">
                           <label class="col-form-label">Full Name <span class="text-danger">*</span></label>
-                          <input type="text" class="form-control" name="name" id="name" placeholder="First and Last Name" value="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}" />
+                          <input type="text" class="form-control" name="name" id="name" placeholder="First and Last Name" value="{{ auth()->user()->fname }} {{ auth()->user()->lname }}" />
                         </div>
 
                         <div class="col-sm-12 form-group">
