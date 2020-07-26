@@ -122,7 +122,7 @@ class PostController extends Controller
             $in['image'] = $filename;
         }
         $in['status'] =  $request->status == 'on' ? '1' : '0';
-        $in['slug'] =  unique_slug($request->title,'Post');
+        //$in['slug'] =  unique_slug($request->title,'Post');
         $res = $data->fill($in)->save();
 
         if ($res) {

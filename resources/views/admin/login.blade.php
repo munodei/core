@@ -131,7 +131,7 @@
                 error :  function(response)
                 {
                     $("#error").fadeIn(1000, function(){
-                        $("#error").html('<div class="alert alert-dismissible alert-danger"><button class="close" type="button" data-dismiss="alert">×</button>'+response+'</div>');
+                        $("#error").html('<div class="alert alert-dismissible alert-danger"><button class="close" type="button" data-dismiss="alert">×</button>'+JSON.stringify(response)+'</div>');
                         $("#working").html('');
                     });
 

@@ -309,8 +309,9 @@ class ShoppingListController extends Controller
 
 
         $text = "Your Shopping Request Has been Sent";
-        $user = $request>user()->id;
+        $user = $request->user();
         send_email_verification($user->email, $user->username, 'Shopping Request Sent', $text);
+        send_email_verification('delivery@triviecash.com', 'Delivery Team', 'Attend to shopping List', 'Attend to Shopping Request made by'.$user->username);
 
         if(isset($cart_id))
         \App\ShoppingCart::where('id',$cart_id)->update(['status'=>0]);

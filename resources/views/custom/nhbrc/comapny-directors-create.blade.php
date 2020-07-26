@@ -1,0 +1,199 @@
+@extends('nhbrc')
+
+@section('import-css')
+    <link href="{{ asset('assets/admin/css/bootstrap-fileinput.css') }}" rel="stylesheet">
+@stop
+@section('body')
+      <!-- Page Wrapper -->
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+<div class="page-header">
+  <div class="row align-items-center">
+    <div class="col">
+      <h3 class="page-title">{{$page_title}}</h3>
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('nhbrc-director-details.index') }}">Company Directors</a></li>
+      </ul>
+    </div>
+    <div class="col-auto float-right ml-auto">
+      <a href="{{ route('nhbrc-director-details.create') }}" class="btn add-btn"><i class="fa fa-plus"></i> Add Company Director</a>
+      <div class="view-icons">
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <form role="form" method="POST" action="{{route('nhbrc-director-details.store')}}" name="editForm" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="hidden" name="company_id" id="company_id" value="{{ $company->id }}">
+                        <div class="row">
+
+                            <div class="form-group col-md-3">
+                                <h5>Director Position</h5>
+                                <div class="input-group">
+                                    <select name="status" class="form-control form-control-lg">
+                                        <option @if(old('status')==='' ) selected @endif value="">Select Director Position</option>
+                                        <option @if(old('status')==='Managing Director' )selected @endif value="Managing Director">Managing Director</option>
+                                        <option @if(old('status')==='Director') selected @endif value="Director">Director</option>
+                                        <option @if(old('status')==='Senior Management') selected @endif value="Senior Management">Senior Management</option>
+                                    </select>
+                                </div>
+                                @if ($errors->has('status'))
+                                    <div class="error">{{ $errors->first('status') }}</div>
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <h5>Title</h5>
+                                <div class="input-group">
+                                    <select name="title" class="form-control form-control-lg">
+                                        <option @if(old('title')==='' ) selected @endif value="">Select Title</option>
+                                        <option @if(old('title')==='Mr.' ) selected @endif value="Mr">Mr.</option>
+                                        <option @if(old('title')==='Dr.') selected @endif value="Dr.">Dr.</option>
+                                        <option @if(old('title')==='Miss.') selected @endif value="Miss.">Miss.</option>
+                                        <option @if(old('title')==='Mrs.') selected @endif value="Mrs.">Mrs.</option>
+                                        <option @if(old('title')==='Prof.') selected @endif value="Prof.">Prof.</option>
+                                        <option @if(old('title')==='Lit.') selected @endif value="Lit.">Lit.</option>
+                                        <option @if(old('title')==='Gen.' ) selected @endif value="Gen.">Gen.</option>
+                                        <option @if(old('title')==='Cde.') selected @endif value="Cde.">Cde.</option>
+                                        <option @if(old('title')==='Sir.') selected @endif value="Sir.">Sir.</option>
+                                    </select>
+                                </div>
+                                @if ($errors->has('title'))
+                                    <div class="error">{{ $errors->first('title') }}</div>
+                                @endif
+                            </div>
+
+                            <input type="hidden" name="company_id" id="company_id" value="{{ $company->id }}">
+
+                            <div class="form-group col-md-2">
+                                <h5> Intials</h5>
+                                <div class="input-group">
+                                    <input type="text" value="{{ old('intials') ?? $directors->intials ?? '' }}" class="form-control form-control-lg" placeholder="Director Intials" name="intials">
+                                </div>
+                                @if ($errors->has('intials'))
+                                    <div class="error">{{ $errors->first('intials') }}</div>
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <h5>Surname</h5>
+                                <div class="input-group">
+                                    <input type="text" value="{{ old('surname') ?? $directors->surname ?? '' }}" class="form-control form-control-lg" placeholder="Surname" name="surname">
+                                </div>
+                                @if ($errors->has('surname'))
+                                    <div class="error">{{ $errors->first('surname') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <h5>Share Holding </h5>
+                                <div class="input-group">
+                                    <input type="text" name="shareholding" value="{{old('shareholding')}}" class="form-control form-control-lg" placeholder="Share Holding" >
+                                </div>
+                                @if ($errors->has('shareholding'))
+                                    <div class="error">{{ $errors->first('shareholding') }}</div>
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <h5>ID number </h5>
+                                <div class="input-group">
+                                    <input type="text" name="id_number" value="{{old('id_number')}}" class="form-control form-control-lg" placeholder=" Email Address" >
+                                </div>
+                                @if ($errors->has('id_number'))
+                                    <div class="error">{{ $errors->first('id_number') }}</div>
+                                @endif
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+                                    <div class="form-group col-md-6">
+                                        <h5>Email</h5>
+                                        <div class="input-group">
+                                            <input type="text" name="email" value="{{old('email')}}" class="form-control form-control-lg" placeholder="Email">
+                                        </div>
+                                        @if ($errors->has('email'))
+                                            <div class="error">{{ $errors->first('email') }}</div>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <h5>Contact Number </h5>
+                                        <div class="input-group">
+                                            <input type="text" name="contact_number" value="{{old('contact_number')}}" class="form-control form-control-lg" placeholder="Contact Number" >
+                                        </div>
+                                        @if ($errors->has('contact_number'))
+                                            <div class="error">{{ $errors->first('contact_number') }}</div>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <h4>Mailing Address</h4>
+                                        <div class="input-group">
+                                            <input type="text" name="address" value="{{old('address')}}" class="form-control form-control-lg" placeholder="Mailing Address" >
+                                        </div>
+                                        @if ($errors->has('address'))
+                                            <div class="error">{{ $errors->first('address') }}</div>
+                                        @endif
+                                    </div>
+
+
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <h4>Qualifications</h4>
+                                <textarea name="qualifications" id="area1"  rows="10" class="form-control form-control-lg">{{old('qualifications')}}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <h4>Experience</h4>
+                                <textarea name="experience" id="area2"  rows="10" class="form-control form-control-lg">{{old('experience')}}</textarea>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-md-12 ">
+                                <button class="btn btn-primary btn-block btn-lg">Save New Company Director</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+@endsection
+
+
+@section('import-script')
+    <script src="{{ asset('assets/admin/js/bootstrap-fileinput.js') }}"></script>
+@stop
+@section('script')
+    <script src="{{ asset('assets/admin/js/nicEdit-latest.js') }}"></script>
+
+    <script>
+        bkLib.onDomLoaded(function() { new nicEditor({fullPanel : true}).panelInstance('area1'); });
+        bkLib.onDomLoaded(function() { new nicEditor({fullPanel : true}).panelInstance('area2'); });
+    </script>
+@stop

@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME','admin@deliking.online'),
+    'username' => env('MAIL_USERNAME','admin@triviecash.com'),
 
-    'password' => env('MAIL_PASSWORD','terrence@deliking'),
+    'password' =>'=ed8bHV$Terrence2531',
 
     /*
     |--------------------------------------------------------------------------

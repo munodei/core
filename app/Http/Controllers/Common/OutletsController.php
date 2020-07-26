@@ -29,29 +29,21 @@ class OutletsController extends Controller
 
    }
 
-   public function index(Request $request,$type)
+   public function index(Request $request)
    {
 
-     $franchises = Franchise::all();
-     $outlet_cats = OutletCat::all();
-//       foreach ($franchises as $franchise) {
-//         foreach ($outlet_cats as $outlet_cat) {
-//
-//
-//           FranchiseOutletCat::create([
-//                                   'franchise_id'=>$franchise->id,
-//                                   'outlet_cat_id'=>$outlet_cat->id
-//           ]);
-//           // code...
-//         }
-// }
-       $outlet_cat         = OutletCat::where('outlet_cat',$type)->first();
-       $outlets            = Franchise::leftjoin('franchise_outlet_cats','franchise_outlet_cats.franchise_id','=','franchises.id')->where('franchise_outlet_cats.outlet_cat_id',$outlet_cat->id)->paginate(20);
-       $page_title         = $outlet_cat->outlet_cat_des;
+      $franchise = \App\Franchise::where('status',1)->paginate(20);
+
+      if($request->has('franchise')){
+        $franchise = \App\Franchise::where([['status',1],['franchise','LIKE','%'.$request->input('franchise').'%']])->paginate(20);
+      }
+
+      $page_title = 'Supported Franchises';
+      return view('custom.franchises.index',compact('franchise','page_title'));
+     
 
 
-
-     return view('custom.outlets.index',compact('outlets','outlet_cat','page_title','type'));
+     //return view('custom.outlets.index',$data);
 
 
    }

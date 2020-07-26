@@ -42,7 +42,7 @@
                         </div>
                       </center>
                         <div class="content">
-                            <h4 class="title"><a href="{{ route('franchise.products',['country'=>strtolower($post->country->name),'franchise'=>$post->slug]) }}">{{$post->franchise}} | {{$post->country->name}}</a> </h4>
+                            <h4 class="title"><a href="{{ route('franchise.products',['country'=>strtolower($post->country->name),'franchise'=>$post->slug]) }}">{{ $post->franchise }} | Products</a> </h4>
                             <div class="post-meta">
                                 <span class="time"><i class="far fa-clock"></i> {{date('d M Y',strtotime($post->created_at))}}</span>
                             </div>

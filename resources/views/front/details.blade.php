@@ -1,6 +1,13 @@
 @extends('merchant-1')
 
 @section('css')
+<meta property="og:image" content="{{asset('assets/images/post/'.$post->image)}}" />
+<meta property="og:image:secure_url" content="{{asset('assets/images/post/'.$post->image)}}" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:image:alt" content="{{ $basic->sitename }} | {{$post->title}}" />
+<meta property="og:description" content="{{ $basic->sitename }}, {{$post->title}}" />
 @endsection
 @section('content')
     {!! $basic->fb_comment !!}

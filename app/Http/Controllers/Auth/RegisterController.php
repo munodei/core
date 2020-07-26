@@ -167,7 +167,7 @@ class RegisterController extends Controller
 
                                 ]);
 
-        //  self::registered($user);                      
+               
         return $user;
     }
 
@@ -179,7 +179,7 @@ class RegisterController extends Controller
         if ($basic->email_verification == 1) {
             $email_code = strtoupper(Str::random(6));
             $text = "Your Verification Code Is: <b>$email_code</b>";
-            send_email_verification($user->email, $user->username, 'Email verification', $text);
+            send_email_verification($user->email, $user->username, 'Email Verification', $text);
 
             $user->verification_code = $email_code;
             $user->email_time = Carbon::parse()->addMinutes(5);

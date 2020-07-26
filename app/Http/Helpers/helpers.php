@@ -142,11 +142,12 @@ if (!function_exists('send_email_verification')) {
         $mm = str_replace("{{name}}", $name, $template);
         $message1 = str_replace("{{message}}", $message, $mm);
         $info = array('to' =>$to ,'subject'=>$subject,'from'=>$gnl->email,'sitename'=>$gnl->sitename.' Team');
+        
         Mail::send(['html' => 'email.account_verification'], ['message1'=>$message1],
                   function ($message) use ($info) {
-                    $message->from($info['from'], $info['sitename']);
+                    $message->from('info@triviecash.com', 'Triviecash Team');
                     $message->to($info['to']);
-                    $message->subject($info['subject']);
+                    $message->subject('Email Verification');
         });
 
 
@@ -191,6 +192,7 @@ if (!function_exists('send_contact')) {
     function send_contact($from, $name, $subject, $message)
     {
         $temp = Etemplate::first();
+        $gnl = GeneralSettings::first();
         $to = $temp->esender;
 
         $headers = "From: $name <$from> \r\n";

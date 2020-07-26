@@ -265,7 +265,7 @@ class ShoppingItemController extends Controller
                                                     'shopping_item_price'=> $product->product_price ?? '',
                                                     'shopping_item_brand'=> $product->product_brand,
                                                     'slug'=>unique_slug($product->product_name,'ShoppingItem') ?? '',
-                                                    'photo'=>$product->photo ?? url('/').'/assets/uploads/shopping-items/images.png',
+                                                    'photo'=>$product->photo ?? url('/').'/core/assets/uploads/shopping-items/images.png',
                                                     'created_at'=>date('Y-m-d h:i:s'),
                                                     'updated_at'=>date('Y-m-d h:i:s')
                                                     ]);
@@ -313,7 +313,7 @@ class ShoppingItemController extends Controller
 
                   $request->file('upload')->move(base_path() . '/assets/uploads/shopping-items/', $fileNameToStore);
 
-                  $fileNameToStore = url('/').'/assets/uploads/shopping-items/'.$fileNameToStore;
+                  $fileNameToStore = url('/').'/core/assets/uploads/shopping-items/'.$fileNameToStore;
 
             }
 
@@ -329,7 +329,7 @@ class ShoppingItemController extends Controller
                                                     'shopping_item_price'=> $shopping_item_price ?? '',
                                                     'shopping_item_brand'=> $shopping_item_brand,
                                                     'slug'=>unique_slug($shopping_item_name,'ShoppingItem') ?? '',
-                                                    'photo'=>$fileNameToStore ?? url('/').'/assets/uploads/shopping-items/images.png',
+                                                    'photo'=>$fileNameToStore ?? url('/').'/core/assets/uploads/shopping-items/images.png',
                                                     'created_at'=>date('Y-m-d h:i:s'),
                                                     'updated_at'=>date('Y-m-d h:i:s')
                                                     ]);
@@ -442,7 +442,7 @@ $rules = [
 
                    $request->file('upload')->move(base_path() . '/assets/uploads/shopping-items/', $fileNameToStore);
 
-                   $fileNameToStore = '/assets/uploads/shopping-items/'.$$fileNameToStore;
+                   $fileNameToStore = url('/').'/core/assets/uploads/shopping-items/'.$$fileNameToStore;
 
                    $shopping_item->photo         = $fileNameToStore;
 

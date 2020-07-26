@@ -99,19 +99,19 @@
         <div class="row">
           <div class="field form-group col-md-6">
             <label for="first_name">First Name <span style="color:red;" aria-hidden="true">*</span></label>
-            <input type="text" class="form-control" id="fname" name="fname" aria-required="true" maxlength="255" autocomplete="off">
+            <input type="text" class="form-control" id="fname" name="fname" aria-required="true" maxlength="255" value="{{ old('fname') }}" autocomplete="off">
           </div>
           <div class="field form-group col-md-6">
             <label for="last_name">Last Name <span style="color:red;" aria-hidden="true">*</span></label>
-            <input type="text" class="form-control" id="lname" name="lname" aria-required="true" maxlength="255" autocomplete="off">
+            <input type="text" class="form-control" id="lname" name="lname" aria-required="true" maxlength="255" value="{{ old('lname') }}" autocomplete="off">
           </div>
           <div class="field form-group col-md-6">
             <label for="email">Email <span style="color:red;" aria-hidden="true">*</span></label>
-            <input type="text" class="form-control" id="email" name="email" aria-required="true" maxlength="255" autocomplete="off">
+            <input type="text" class="form-control" id="email" name="email" aria-required="true" maxlength="255" value="{{ old('email') }}" autocomplete="off">
           </div>
           <div class="field form-group col-md-6">
             <label for="phone">Phone <span style="color:red;" aria-hidden="true">*</span></label>
-            <input type="text" class="form-control" id="phone" name="phone" maxlength="255" autocomplete="off" required="required" aria-required="true">
+            <input type="text" class="form-control" id="phone" name="phone" maxlength="255" autocomplete="off" value="{{ old('phone') }}" required="required" aria-required="true">
           </div>
         </div>
 
@@ -140,7 +140,7 @@
 
              <select class="form-control" name="city_id" id="city_id" required>
                @foreach($cities as $city)
-                  <option value="{{ $city->id }}">{{ $city->city }}</option>
+                  <option @if(old('id_number')===$city->id )selected @endif value="{{ $city->id }}">{{ $city->city }}</option>
                @endforeach
             </select>
         </div>
@@ -149,7 +149,7 @@
           <label>Which City Neighbourhood are you applying for<span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
           <select  class="select2-offscreen form-control" name="neighbourhood_id" id="neighbourhood_id" required>
             @foreach($neighbourhoods as $neighbourhood)
-            <option value="{{ $neighbourhood->id }}">{{ $neighbourhood->neighbourhood }}</option>
+            <option @if(old('neighbourhood_id')===$neighbourhood->id )selected @endif value="{{ $neighbourhood->id }}">{{ $neighbourhood->neighbourhood }}</option>
             @endforeach
 
           </select>
@@ -160,7 +160,7 @@
           <label>Suburb of Preference<span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
           <select  class="select2-offscreen form-control" name="suburb_id" id="suburb_id" required>
             @foreach($suburbs as $suburb)
-            <option value="{{ $suburb->id }}">{{ $suburb->suburb }}</option>
+            <option @if(old('suburb_id')===$suburb->id )selected @endif value="{{ $suburb->id }}">{{ $suburb->suburb }}</option>
             @endforeach
 
           </select>
@@ -170,10 +170,10 @@
         <div class="field form-group col-md-6">
                 <label>Race <span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
                 <select class="form-control" name="race" id="race" required>
-                    <option value="African">African</option>
-                    <option value="White">White</option>
-                    <option value="Indian">Indian</option>
-                    <option value="Coloured">Coloured</option>
+                    <option @if(old('race')=="African" )selected @endif value="African">African</option>
+                    <option @if(old('race')=="White" )selected @endif value="White">White</option>
+                    <option @if(old('race')=="Indian" )selected @endif value="Indian">Indian</option>
+                    <option @if(old('race')=="Coloured")selected @endif value="Coloured">Coloured</option>
                 </select>
         </div>
 
@@ -183,7 +183,7 @@
             <select class="form-control" name="country_id" id="country_id" required>
             <option value="">Please select</option>
             @foreach($countries as $country)
-              <option value="{{ $country->id }}">{{ $country->name }}</option>
+              <option @if(old('country_id')==$country->id)selected @endif value="{{ $country->id }}">{{ $country->name }}</option>
             @endforeach
             </select>
         </div>
@@ -193,17 +193,17 @@
           <label>Gender<span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
             <br>
             <select class="form-control" name="gender" id="gender" required>
-                <option value="">Please select</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-                <option value="Other">Other</option>
+                <option @if(old('gender')==="African" )selected @endif value="">Please select</option>
+                <option @if(old('gender')==="African" )selected @endif value="Female">Female</option>
+                <option @if(old('gender')==="African" )selected @endif value="Male">Male</option>
+                <option @if(old('gender')==="African" )selected @endif value="Other">Other</option>
             </select>
         </div>
 
         <div class="field form-group col-md-6">
           <label>ID / Passport Number <span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
             <br>
-              <input type="text" name="id_number" id="id_number" class="form-control" aria-required="true" maxlength="255" autocomplete="off">
+              <input type="text" name="id_number" id="id_number" class="form-control" aria-required="true" value="{{ old('id_number') }}" maxlength="255" autocomplete="off">
         </div>
 
 </div>
@@ -218,8 +218,8 @@
   <label>Do you have a valid Drivers Licence<span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
     <br>
     <select class="form-control" name="driver_license" id="driver_license" required>
-      <option value="1">Yes</option>
-      <option value="0">No</option>
+      <option @if(old('gender')=="1" )selected @endif value="1">Yes</option>
+      <option @if(old('gender')=="0" )selected @endif value="0">No</option>
     </select>
     </label>
 </div>
@@ -235,15 +235,15 @@
     <br>
     <span><p>What type of Transport do you have?&nbsp;</p></span>
         <label>
-          <input type="checkbox"  name="car" id="car"  value="car" set="car" aria-required="true">&nbsp;&nbsp;Car
+          <input type="checkbox"  name="car" id="car"  value="car" set="car" aria-required="true" @if(old('car')=="car" )checked @endif>&nbsp;&nbsp;Car
         </label>
         <br>
         <label>
-          <input type="checkbox"   name="bike" id="bike" value="bike" set="bike" aria-required="true">&nbsp;&nbsp;Bike / Scooter
+          <input type="checkbox"   name="bike" id="bike" value="bike" set="bike" aria-required="true" @if(old('bike')=="bike" )checked @endif>&nbsp;&nbsp;Bike / Scooter
         </label>
         <br>
         <label>
-          <input type="checkbox"   name="scooter" id="scooter" value="scooter" set="scooter" aria-required="true">&nbsp;&nbsp;No Transport
+          <input type="checkbox"   name="scooter" id="scooter" value="scooter" set="scooter" aria-required="true" @if(old('scooter')=="scooter" )checked @endif>&nbsp;&nbsp;No Transport
         </label>
         <br>
 </label>
@@ -254,19 +254,19 @@
   <label>Driver Availability <span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
     <br>
         <label>
-          <input type="checkbox"  name="anytime" id="anytime" value="anytime" set="anytime" aria-required="true">&nbsp;&nbsp;Anytime
+          <input type="checkbox"  name="anytime" id="anytime" value="anytime" set="anytime" aria-required="true" @if(old('anytime')=="anytime" )checked @endif>&nbsp;&nbsp;Anytime
         </label>
         <br>
         <label>
-          <input type="checkbox"  name="weekends" id="weekends"  value="weekends" set="weekends" aria-required="true">&nbsp;&nbsp;Weekends
+          <input type="checkbox"  name="weekends" id="weekends"  value="weekends" set="weekends" aria-required="true" @if(old('weekends')=="weekends" )checked @endif>&nbsp;&nbsp;Weekends
         </label>
         <br>
         <label>
-          <input type="checkbox"  name="weekdays" id="" value="weekdays" set="weekdays" aria-required="true">&nbsp;&nbsp;Weekdays
+          <input type="checkbox"  name="weekdays" id="" value="weekdays" set="weekdays" aria-required="true" @if(old('weekdays')=="weekdays" )checked @endif>&nbsp;&nbsp;Weekdays
         </label>
         <br>
         <label>
-          <input type="checkbox" name="nights" id="nights" value="nights" set="nights" aria-required="true">&nbsp;&nbsp;Nights
+          <input type="checkbox" name="nights" id="nights" value="nights" set="nights" aria-required="true" @if(old('nights')=="nights" )checked @endif>&nbsp;&nbsp;Nights
         </label>
         <br>
 </div>
@@ -276,8 +276,8 @@
   <label>Do you have a criminal record?<span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
     <br>
   <select class="form-control" name="criminal_record" id="criminal_record" required>
-      <option value="1">Yes</option>
-      <option value="0">No</option>
+      <option @if(old('criminal_record')=="1" )selected @endif value="1">Yes</option>
+      <option @if(old('criminal_record')=="0" )selected @endif value="0">No</option>
   </select>
 </div>
 
@@ -285,8 +285,8 @@
   <label>Do you own an Android Mobile Phone? <span style="color:red;" aria-hidden="true">&nbsp;*</span></label>
         <br>
     <select class="form-control" name="mobile_phone" id="mobile_phone" required>
-        <option value="1">Yes</option>
-        <option value="0">No</option>
+        <option @if(old('mobile_phone')=="1" )selected @endif value="1">Yes</option>
+        <option @if(old('mobile_phone')=="0" )selected @endif value="0">No</option>
     </select>
 
 </div>

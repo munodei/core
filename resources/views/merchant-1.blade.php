@@ -68,12 +68,7 @@ a:hover, a:visited, a:link, a:active
 				<!-- Header Menu -->
 				<ul class="nav user-menu">
           <!-- Flag -->
-          <li class="nav-item">
-              <a class="dropdown-item" href="{{route('about')}}">About Us</a>
-          </li>
-          <li class="nav-item">
-              <a class="dropdown-item" href="{{route('blog')}}">Blog</a>
-          </li>
+
           <li class="nav-item dropdown has-arrow flag-nav">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ url()->current() }}" role="button">
           <span>Services</span>
@@ -100,13 +95,15 @@ a:hover, a:visited, a:link, a:active
 <span>Pages</span>
   </a>
   <div class="dropdown-menu dropdown-menu-right">
-    <a class="dropdown-item" href="{{route('contact-us')}}">Contact Us</a>
-      <a class="dropdown-item" href="{{route('faqs')}}">Faqs</a>
 
+        <a class="dropdown-item" href="{{route('about')}}">About Us</a>
+        <a class="dropdown-item" href="{{route('blog')}}">Blog</a>
+        <a class="dropdown-item" href="{{route('contact-us')}}">Contact Us</a>
+        <a class="dropdown-item" href="{{route('faqs')}}">Faqs</a>
+        @foreach($menus as $data)
+        <a  href="{{route('menu',[$data->id, str_slug($data->name)])}}" class="dropdown-item">{{$data->name}}</a>
+        @endforeach
 
-    @foreach($menus as $data)
-            <a  href="{{route('menu',[$data->id, str_slug($data->name)])}}" class="dropdown-item">{{$data->name}}</a>
-    @endforeach
   </div>
 </li>
 <!-- /Flag -->
@@ -273,6 +270,12 @@ a:hover, a:visited, a:link, a:active
               <li>
                 <a href="{{ route('home') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
               </li>
+              <li>
+                <a href="{{ route('bills.index') }}"><i class="la la-list-alt"></i> <span>Bills</span></a>
+              </li>
+              <li>
+                <a href="{{ route('paypal-quick-cash.index') }}"><i class="la la-paypal"></i> <span>Paypal Quick Cash</span></a>
+              </li>
 							<li class="submenu">
 								<a href="#" class="@if(Route::currentRouteName() == 'contacts.index')  active @endif" class="noti-dot"><i class="la la-users"></i> <span>Contacts</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
@@ -328,15 +331,8 @@ a:hover, a:visited, a:link, a:active
 
               <li>
 
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'restaurants']) }}">                 <i class="fa fa-hamburger"></i>       <span>Restaurants</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'fruit-and-vegetables-stores']) }}"> <i class="fa fa-carrot"></i>          <span>Fruits & Veg</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"   href="{{ route('outlets',['type'=>'butcheries']) }}">                 <i class="fa fa-fish"></i>            <span>Butcheries</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'supermarkets']) }}">                <i class="fa fa-shopping-basket"></i> <span>Supermarkets</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'wholesalers']) }}">                 <i class="fa fa-building"></i>         <span>Wholesalers</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'florists']) }}">                    <i class="fa fa-seedling"></i>        <span>Florists</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'hardware-centres']) }}">            <i class="fa fa-door-open"></i>       <span>Hardware Centres</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'phamarcies']) }}">                  <i class="fa fa-clinic-medical"></i>  <span>Phamarcies</span></a>
-                <a class="@if(Route::currentRouteName() == 'outlets')  active @endif"  href="{{ route('outlets',['type'=>'liquor-and-beverage-stores']) }}">  <i class="fa fa-glass-cheers"></i>    <span>Liquor & beverages</span></a>
+                <a class="@if(Route::currentRouteName() == 'outlet.departments')  active @endif"  href="{{ route('outlet.franchise.index') }}">                       <span>Outlets</span></a>
+
 
               </li>
 

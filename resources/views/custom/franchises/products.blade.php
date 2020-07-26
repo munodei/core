@@ -53,8 +53,9 @@
                 </div>
               </div>
               <div class="profile-img">
-                <a href="{{ route('product.preview',['slug'=>$data->slug]) }}" class="avatar"><center><img src="{{ $data->photo }}" alt="{{ $data->outlet }}" width="100%" height="100%"/></center></a>
+                <a href="{{ route('product.preview',['slug'=>$data->slug]) }}" class="avatar"><center><img src="{{ $data->photo }}" alt="{{ $data->outlet }}" width="80px" height="80px" /></center></a>
               </div>
+
               <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="#">{{ $outlet->outlet }}</a></h4>
               <div class="small text-muted"><strong>Name :</strong> {{ $data->product_name }}</div>
               <div class="small text-muted"><strong>Brand :</strong> {{ $data->product_brand }}</div>

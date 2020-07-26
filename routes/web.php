@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/services/{name}', 'FrontendController@mainCategoryServices')->name('services');
+Route::resource('service-request', 'RequestsController');
+Route::get('/category/providers/{name}', 'FrontendController@categoryServices')->name('category.providers');
+Route::get('/service/providers/{name}', 'FrontendController@subCategoryServices')->name('services.providers');
 //Route::get('/testsms', 'FrontendController@sendSms')->name('send.sms');
 //Payment IPN
 
@@ -41,6 +45,10 @@ Route::post('/ipnvoguepay', 'PaymentController@ipnVoguePay')->name('ipn.voguepay
 Route::any('/product/{slug}','ProductController@previewProduct')->name('product.preview');
 Route::get('/driver-application','DriverApplicationController@index')->name('driver.application');
 Route::post('/driver-application','DriverApplicationController@store')->name('driver.application');
+
+Route::get('/job-seeker-application','DriverApplicationController@jobSeeker')->name('job.seeker.application');
+Route::post('/job-seeker-application','DriverApplicationController@jobSeekerStore')->name('job.seeker.application');
+
 Route::get('/mall-runner-application','DriverApplicationController@mallrunner')->name('mall-runner.application');
 Route::post('/mall-runner-application','DriverApplicationController@create')->name('mall-runner.application');
 
@@ -66,12 +74,31 @@ Route::post('/essential-service-providers', 'FrontendController@essentialService
 
 Route::get('/service-provider/{slug}', 'FrontendController@serviceProvider')->name('service_provider.info');
 
+//nhbrc
+Route::resource('nhbrc-company-details', 'NHBRC\NHBRCCompanyDetailsController');
+Route::resource('nhbrc-director-details', 'NHBRC\NHBRCDirectorDetailsController');
+Route::resource('nhbrc-ownership-links', 'NHBRC\NHBRCOwnershipLinks');
+Route::resource('nhbrc-court-actions', 'NHBRC\NHBRCCourtActionsController');
+Route::resource('nhbrc-bank-reference', 'NHBRC\NHBRCBankReferenceController');
+Route::resource('nhbrc-clients-references', 'NHBRC\NHBRCClientReferenceController');
+Route::resource('nhbrc-supplier-references', 'NHBRC\NHBRCSupplierReferenceController');
+Route::resource('nhbrc-professional-references', 'NHBRC\NHBRCProfessionalReferencesController');
+Route::resource('nhbrc-technical-management', 'NHBRC\NHBRCTechnicalManagementController');
+Route::resource('nhbrc-after-sales', 'NHBRC\NHBRCAffterSalesCustomerServiceController');
+Route::resource('nhbrc-payment-details', 'NHBRC\NHBRCPaymentDetailsController');
+Route::resource('nhbrc-declaration', 'NHBRC\NHBRCDeclarationController');
+Route::resource('nhbrc-financial', 'NHBRC\NHBRCFinancialController');
+Route::resource('nhbrc-guarantees', 'NHBRC\NHBRCGuaranteesController');
+Route::resource('nhbrc-trade-associations', 'NHBRC\NHBRCTradeAssociationsController');
+Route::resource('nhbrc-document-attached', 'NHBRC\NHBRCDocumentsAttachedController');
 
-Route::get('/{country}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
-Route::get('/{country}/{state}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
-Route::get('/{country}/{state}/{city}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
-Route::get('/{country}/{state}/{city}/{neighbourhood}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
-Route::get('/{country}/{state}/{city}/{neighbourhood}/{suburb}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+
+
+// Route::get('/{country}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+// Route::get('/{country}/{state}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+// Route::get('/{country}/{state}/{city}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+// Route::get('/{country}/{state}/{city}/{neighbourhood}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
+// Route::get('/{country}/{state}/{city}/{neighbourhood}/{suburb}/outlets', 'FrontendController@outletsBySuburb')->name('outlets.category');
 
 Route::post('/subscribe', 'FrontendController@subscribe')->name('subscribe');
 Route::get('/contact-us', 'FrontendController@contactUs')->name('contact-us');
@@ -111,6 +138,18 @@ Route::group(['middleware' => ['auth','CheckStatus']], function() {
         Route::get('edit-profile', 'HomeController@editProfile')->name('edit-profile');
         Route::post('edit-profile', 'HomeController@submitProfile')->name('edit-profile');
 
+        //Bills
+        Route::resource('bills', 'Bills\BillController');
+        Route::post('bill-payment-confirm','Bills\BillController@billPaymentConfirm')->name('bill.payment.confirm');
+        Route::post('bill-preview','Bills\BillController@billPaymentPreview')->name('bill.preview');
+        Route::post('delete-bill','Bills\BillController@destroy')->name('delete-bill');
+
+        //Paypal Quick Cash Service
+        Route::resource('paypal-quick-cash', 'PaypalRemittance\PaypalRemittanceController');
+        Route::post('paypal-quick-cash-confirm','PaypalRemittance\PaypalRemittanceController@billPaymentConfirm')->name('bill.payment.confirm');
+        Route::post('paypal-quick-cash-preview','PaypalRemittance\PaypalRemittanceController@billPaymentPreview')->name('bill.preview');
+
+
 
         /*Merchant */
         Route::get('/send-money', 'HomeController@sendMoney')->name('send.money');
@@ -141,7 +180,7 @@ Route::group(['middleware' => ['auth','CheckStatus']], function() {
         Route::get('/clear-notifications','NotificationController@clearNotifications')->name('clear-notifications');
 
         //Outlets
-        Route::get('/franchise/{type}','Common\OutletsController@index')->name('outlets');
+        Route::get('/selling-franchises','Common\OutletsController@index')->name('outlet.franchise.index');
         Route::get('/franchise/{outlet}/{department}','Common\OutletsController@outletDepartments')->name('outlet.departments');
         Route::get('/franchise/{outlet}/{type}/{department}','Common\OutletsController@outletProducts')->name('outlet.products');
 
@@ -152,8 +191,6 @@ Route::group(['middleware' => ['auth','CheckStatus']], function() {
         Route::any('share-contact-group','ContactGroupController@shareContactGroup')->name('share-contact-group');
         Route::any('delete-contact-group','ContactGroupController@destroy')->name('delete-contact-group');
         Route::any('delete-contact-from-group/{group_id}/{contact_id}','ContactGroupController@deleteFromContactList')->name('delete-contact-from-group');
-
-
 
 
         //delivery locations

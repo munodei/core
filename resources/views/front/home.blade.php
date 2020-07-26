@@ -222,6 +222,122 @@
     </section>
     <!-- faq area end -->
 
+        <!-- faq area start -->
+    <section class="faq-area2"  style="margin:10px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-title extra">
+                        <h2 class="title">Our COVID-19 Community Guidelines</h2>
+                        <p>Our COVID-19 Community Guidelines
+Tips, advice and news related to trading on Triviecash during the COVID-19 crisis.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="left-content-wrapper"><!-- left content wrapper -->
+                        <div id="accordion">
+                            <div class="row">
+                                
+            
+
+                                        
+                                            <div class="col-lg-6">
+                                                <div class="card">
+                                                  <a class="collapsed" data-toggle="collapse"  data-target="#collapseGuidelines"
+                                                     >
+                                                    <div class="card-header" id="headingGuidelines">
+
+                                                            <span class="padding-left-10">Guidelines</span>
+
+                                                    </div>
+                                                      </a>
+                                                    <div id="collapseGuidelines" class="collapse"
+                                                         aria-labelledby="headingGuidelines "
+                                                         data-parent="#accordion">
+                                                        <div class="card-body">
+
+                                                            <div class="text-center">
+                                                                <h4>In light of the President’s address and increasing concern about the spread of the Corona-virus, we are keeping a close eye on government regulations and guidelines to keep our community safe.
+
+We encourage all of our users that do not operate as essential businesses to adhere to the lockdown and not to conclude face-to-face transactions at this time.
+
+The prices of goods listed on Triviecash are set by individual sellers and reflect the supply and demand of a particular product. </h4>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="card">
+                                                  <a class="collapsed" data-toggle="collapse"  data-target="#collapseOurpolicies"
+                                                     >
+                                                    <div class="card-header" id="headingOurpolicies">
+
+                                                            <span class="padding-left-10">Our policies</span>
+
+                                                    </div>
+                                                      </a>
+                                                    <div id="collapseOurpolicies" class="collapse"
+                                                         aria-labelledby="headingOurpolicies"
+                                                         data-parent="#accordion">
+                                                        <div class="card-body">
+
+                                                            <div class="text-center">
+                                                                <h4>We took action to review all products with keywords related to Coronavirus and potentially profiteering, as well as potential false medical claims. We have not taken an approach to ban entirely as many products are legitimate, so therefore are reviewing on an product by product basis. We will remove products if they are in conflict with our general terms or the spirit thereof (products with clear excessive pricing or very clearly untrue health claims such as “virus mask”). </h4>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="card">
+                                                  <a class="collapsed" data-toggle="collapse"  data-target="#collapseYoucanhelp"
+                                                     >
+                                                    <div class="card-header" id="headingYoucanhelp">
+
+                                                            <span class="padding-left-10">You can help</span>
+
+                                                    </div>
+                                                      </a>
+                                                    <div id="collapseYoucanhelp" class="collapse"
+                                                         aria-labelledby="headingYoucanhelp"
+                                                         data-parent="#accordion">
+                                                        <div class="card-body">
+
+                                                            <div class="text-center">
+                                                                <h4>Please help us to keep an eye out for products that feature false medical claims or excessive pricing and flag them accordingly. 
+
+Other than that, it’s business as usual for us.
+
+If you have any concerns or questions, please visit sacoronavirus.co.za, the official Depart of Health website. 
+
+If you see anything that concerns you on Triviecash, please contact us at info@triviecash.com, we will respond within 24 hours.  </h4>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       
+                                 
+
+
+                            </div>
+
+                        </div>
+                    </div><!-- //.left content wrapper -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- faq area end -->
+
   <hr>
     <!-- video area start -->
     <section class="video-area video-area-bg grd-overlay" style="margin:10px;">

@@ -56,7 +56,7 @@
                   <a class="dropdown-item" href="#" data-toggle="modal" onclick="getContactID({{ $data->contactID }});" data-target="#AddContactTogroup" ><i class="fa fa-folder m-r-5"></i> Add to Contact Group</a>
                   <a class="dropdown-item" href="{{ route('contact', [$data->contactID]) }}"><i class="fa fa-eye m-r-5"></i> View</a>
                   <a class="dropdown-item" href="{{ route('contacts.edit', $data->contactID) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                  <a class="dropdown-item" href="{{ route('contacts.destroy', $data->contactID) }}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                  <a class="dropdown-item" href="{{ route('delete-contact', $data->contactID) }}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                 </div>
               </div>
               <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="#">{{$data->firstname}} {{$data->lastname}}</a></h4>
